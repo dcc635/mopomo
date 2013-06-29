@@ -26,15 +26,17 @@ require.config
 
 
 require ["backbone", "moment"], (Backbone, moment) ->
+  refresh = ->
+      x = moment().format('h:mm:ss')
+      console.log(moment().format())
+      $('#clock').html(x)
+
   AppRouter = Backbone.Router.extend
 
     routes:
       "": "clock"
 
-    clock: ->
-      x = moment()
-      console.log(moment().format())
-      $('#clock').html moment().format()
+    clock: setInterval(refresh, 1000)
 
   app = new AppRouter()
 

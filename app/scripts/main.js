@@ -24,17 +24,18 @@
   });
 
   require(["backbone", "moment"], function(Backbone, moment) {
-    var AppRouter, app;
+    var AppRouter, app, refresh;
+    refresh = function() {
+      var x;
+      x = moment().format('h:mm:ss');
+      console.log(moment().format());
+      return $('#clock').html(x);
+    };
     AppRouter = Backbone.Router.extend({
       routes: {
         "": "clock"
       },
-      clock: function() {
-        var x;
-        x = moment();
-        console.log(moment().format());
-        return $('#clock').html(moment().format());
-      }
+      clock: setInterval(refresh, 1000)
     });
     app = new AppRouter();
     return Backbone.history.start();
