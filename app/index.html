@@ -18,19 +18,7 @@
     <body>
         <div class="container">
             <div class="hero-unit">
-                <h1>'Allo, 'Allo!</h1>
-                <h1>It's 8:06pm and OU still sucks</h1>
-                <p>You now have</p>
-                <ul>
-                    <li>HTML5 Boilerplate</li>
-                    <li>jQuery</li>
-                    <li>Backbone.js</li>
-                    <li>Underscore.js</li>
-                    <li>RequireJS</li>
-                    <li>Twitter Bootstrap</li>
-                </ul>
-                <p>installed.</p>
-                <h3>Enjoy coding! - Yeoman</h3>
+                <h1>It's <div id="clock"></div> and OU still sucks</h1>
             </div>
         </div>
 
@@ -45,9 +33,8 @@
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
-
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
         <!-- endbuild -->
-</body>
+    </body>
 </html>
