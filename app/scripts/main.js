@@ -27,7 +27,7 @@
     var AppRouter, app, refresh;
     refresh = function() {
       var x;
-      x = moment().format('h:mm:ss');
+      x = moment().format('h:mm:ss a');
       console.log(moment().format());
       return $('#clock').html(x);
     };
@@ -35,7 +35,7 @@
       routes: {
         "": "clock"
       },
-      clock: setInterval(refresh, 1000)
+      clock: setInterval(refresh, 50)
     });
     app = new AppRouter();
     return Backbone.history.start();
