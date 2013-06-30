@@ -26,13 +26,6 @@ require.config
 
 
 require ["backbone", "moment"], (Backbone, moment) ->
-  m = moment([0, 0, 0, 23, 59, 50, 0])
-
-  refresh = ->
-    m.add('seconds', 1)
-    timestamp = m.format('HH:mm:ss')
-    $('.clock').html(timestamp)
-
 
   class AppRouter extends Backbone.Router
 
@@ -40,7 +33,20 @@ require ["backbone", "moment"], (Backbone, moment) ->
       "": "clock"
 
     clock: ->
-      setInterval(refresh, 1000)
+
+      m = moment([0, 0, 0, 0, 0, 4, 0])
+
+      refresh = ->
+        m.subtract('seconds', 1)
+        timestamp = m.format('HH:mm:ss')
+        $('.clock').html(timestamp)
+
+      stopTimer = ->
+        clearInterval(intervalHandler)
+
+      intervalHandler = setInterval(refresh, 1000)
+      setTimeout(stopTimer, 5000)
+
 
   app = new AppRouter()
 
