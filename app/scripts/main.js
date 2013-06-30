@@ -27,12 +27,13 @@
   });
 
   require(["backbone", "moment"], function(Backbone, moment) {
-    var AppRouter, app, refresh, _ref;
+    var AppRouter, app, m, refresh, _ref;
+    m = moment([0, 0, 0, 23, 59, 50, 0]);
     refresh = function() {
-      var x;
-      x = moment().format('h:mm:ss a');
-      console.log(moment().format());
-      return $('#clock').html(x);
+      var timestamp;
+      m.add('seconds', 1);
+      timestamp = m.format('HH:mm:ss');
+      return $('.clock').html(timestamp);
     };
     AppRouter = (function(_super) {
       __extends(AppRouter, _super);
@@ -49,7 +50,7 @@
       };
 
       AppRouter.prototype.clock = function() {
-        return setInterval(refresh, 5);
+        return setInterval(refresh, 1000);
       };
 
       return AppRouter;
