@@ -3,9 +3,15 @@
 
 .hero-unit {
     margin: 50px auto 0 auto;
-    width: 300px;
+    width: 500px;
 }
 
 .clock {
     @extend h1;
+}
+
+input[class="clock-input focused"]{
+    @extend h1;
+    width: 68px;
+    height: 63px;
 }
