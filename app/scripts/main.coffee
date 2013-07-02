@@ -24,7 +24,6 @@ require.config
     bootstrap: "vendor/bootstrap"
     moment: "../bower_components/moment/moment"
 
-
 require ["backbone", "moment"], (Backbone, moment) ->
 
   class AppRouter extends Backbone.Router
@@ -44,8 +43,20 @@ require ["backbone", "moment"], (Backbone, moment) ->
       stopTimer = ->
         clearInterval(intervalHandler)
 
-      intervalHandler = setInterval(refresh, 1000)
-      setTimeout(stopTimer, 5000)
+      saveTime = ->
+        m = moment([0, 0, 0, 0, 0, 10, 0])
+
+      clickStart = ->
+        alert('sup')
+        saveTime()
+        intervalHandler = setInterval(refresh, 1000)
+        setTimeout(->
+          clearInterval(intervalHandler)
+        , 5000)
+
+      $('button').on('click', ->
+        clickStart()
+      )
 
 
   app = new AppRouter()

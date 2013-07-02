@@ -43,7 +43,7 @@
       };
 
       AppRouter.prototype.clock = function() {
-        var intervalHandler, m, refresh, stopTimer;
+        var clickStart, m, refresh, saveTime, stopTimer;
         m = moment([0, 0, 0, 0, 0, 4, 0]);
         refresh = function() {
           var timestamp;
@@ -54,8 +54,21 @@
         stopTimer = function() {
           return clearInterval(intervalHandler);
         };
-        intervalHandler = setInterval(refresh, 1000);
-        return setTimeout(stopTimer, 5000);
+        saveTime = function() {
+          return m = moment([0, 0, 0, 0, 0, 10, 0]);
+        };
+        clickStart = function() {
+          var intervalHandler;
+          alert('sup');
+          saveTime();
+          intervalHandler = setInterval(refresh, 1000);
+          return setTimeout(function() {
+            return clearInterval(intervalHandler);
+          }, 5000);
+        };
+        return $('button').on('click', function() {
+          return clickStart();
+        });
       };
 
       return AppRouter;
