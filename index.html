@@ -16,13 +16,21 @@
     <body>
         <div class="container">
             <div class="hero-unit">
+                <h1>MoPomo</h1>
+                <div class="pagination">
+                    <ul>
+                        <li><a href="#">Timers</a></li>
+                        <li><a href="#">Share</a></li>
+                        <li><a href="#">Account</a></li>
+                    </ul>
+                </div>
                 <form class="form-inline" action="/#">
                     <fieldset>
                         <legend>Set Timer</legend>
-                        <input name="hours" type="text" class="clock-input focused" placeholder="00" maxlength="2">
-                        <input name="minutes" type="text" class="clock-input focused" placeholder="00" maxlength="2">
-                        <input name="seconds" type="text" class="clock-input focused" placeholder="00" maxlength="2">
-                        <button name="start" type="button" class="btn btn-primary btn-large">Start</button>
+                        <input id="hours" type="text" class="clock-input focused" placeholder="00" maxlength="2">
+                        <input id="minutes" type="text" class="clock-input focused" placeholder="00" maxlength="2">
+                        <input id="seconds" type="text" class="clock-input focused" placeholder="00" maxlength="2">
+                        <button id="start" type="button" class="btn btn-primary btn-large">Start</button>
                     </fieldset>
                 </form>
                 <div class="clock"></div>
