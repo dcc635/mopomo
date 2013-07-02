@@ -47,7 +47,6 @@ require ["backbone", "moment"], (Backbone, moment) ->
         m = moment([0, 0, 0, 0, 0, 10, 0])
 
       clickStart = ->
-        alert('sup')
         saveTime()
         intervalHandler = setInterval(refresh, 1000)
         setTimeout(->

@@ -59,7 +59,6 @@
         };
         clickStart = function() {
           var intervalHandler;
-          alert('sup');
           saveTime();
           intervalHandler = setInterval(refresh, 1000);
           return setTimeout(function() {
