@@ -24,7 +24,7 @@ require.config
     bootstrap: "vendor/bootstrap"
     moment: "../bower_components/moment/moment"
     jquerytimer: "../bower_components/jquery-timer/jquery.timer"
-
+    
 require ["app"], (App) ->
 
   App.initialize()

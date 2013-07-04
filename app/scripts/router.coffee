@@ -2,8 +2,9 @@ define [
   "jquery",
   "underscore",
   "backbone",
-  "moment"
-], ($, _, Backbone, moment) ->
+  "moment",
+  "countdown_timer"
+], ($, _, Backbone, moment, CountdownTimer) ->
 
   class AppRouter extends Backbone.Router
 
@@ -11,31 +12,30 @@ define [
       "": "clock"
 
     clock: ->
-
-      timerMoment = moment([0, 0, 0, 0, 0, 4, 0])
-
-      refresh = ->
-        timerMoment.subtract('seconds', 1)
-        timestamp = timerMoment.format('HH:mm:ss')
-        $('.clock').html(timestamp)
-
-      stopTimer = (intervalHandler) ->
-        clearInterval(intervalHandler)
-
-      saveTime = ->
-        timerMoment = moment([0, 0, 0, 0, 0, 10, 0])
-
-      clickStart = ->
-        saveTime()
-        intervalHandler = setInterval(refresh, 1000)
-        setTimeout(->
-          stopTimer(intervalHandler)
-        , 5000)
+      countdownTimer = new CountdownTimer(5)
 
       $('button').on('click', ->
-        clickStart()
+        countdownTimer.start()
       )
+
+
+      # timerMoment = moment([0, 0, 0, 0, 0, 4, 0])
+
+
+      # stopTimer = (intervalHandler) ->
+      #   clearInterval(intervalHandler)
+
+      # saveTime = ->
+      #   timerMoment = moment([0, 0, 0, 0, 0, 10, 0])
+
+      # clickStart = ->
+      #   saveTime()
+      #   intervalHandler = setInterval(refresh, 1000)
+      #   setTimeout(->
+      #     stopTimer(intervalHandler)
+      #   , 5000)
+
+
 
   initialize: ->
     app_router = new AppRouter()
-    Backbone.history.start()

@@ -7,6 +7,7 @@ define [
 
   initialize = ->
     Router.initialize()
+    Backbone.history.start()
 
   return {
     initialize: initialize

@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(["jquery", "underscore", "backbone", "moment"], function($, _, Backbone, moment) {
+  define(["jquery", "underscore", "backbone", "moment", "countdown_timer"], function($, _, Backbone, moment, CountdownTimer) {
     var AppRouter, _ref;
     AppRouter = (function(_super) {
       __extends(AppRouter, _super);
@@ -19,30 +19,10 @@
       };
 
       AppRouter.prototype.clock = function() {
-        var clickStart, refresh, saveTime, stopTimer, timerMoment;
-        timerMoment = moment([0, 0, 0, 0, 0, 4, 0]);
-        refresh = function() {
-          var timestamp;
-          timerMoment.subtract('seconds', 1);
-          timestamp = timerMoment.format('HH:mm:ss');
-          return $('.clock').html(timestamp);
-        };
-        stopTimer = function(intervalHandler) {
-          return clearInterval(intervalHandler);
-        };
-        saveTime = function() {
-          return timerMoment = moment([0, 0, 0, 0, 0, 10, 0]);
-        };
-        clickStart = function() {
-          var intervalHandler;
-          saveTime();
-          intervalHandler = setInterval(refresh, 1000);
-          return setTimeout(function() {
-            return stopTimer(intervalHandler);
-          }, 5000);
-        };
+        var countdownTimer;
+        countdownTimer = new CountdownTimer(5);
         return $('button').on('click', function() {
-          return clickStart();
+          return countdownTimer.start();
         });
       };
 
@@ -52,8 +32,7 @@
     return {
       initialize: function() {
         var app_router;
-        app_router = new AppRouter();
-        return Backbone.history.start();
+        return app_router = new AppRouter();
       }
     };
   });
