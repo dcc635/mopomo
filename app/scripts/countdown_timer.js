@@ -1,7 +1,8 @@
 (function() {
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __slice = [].slice;
 
-  define(['jquery'], function($) {
+  define(['jquery', 'moment'], function($, moment) {
     var CountdownTimer;
     return CountdownTimer = (function() {
       CountdownTimer.prototype.to_secs = function(mils) {
@@ -14,12 +15,15 @@
         return console.log("reset start_seconds: " + this.start_seconds);
       };
 
-      function CountdownTimer(seconds) {
-        this.seconds = seconds;
+      function CountdownTimer() {
+        var args;
+        args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
         this.start = __bind(this.start, this);
         this.stop = __bind(this.stop, this);
         this.refresh = __bind(this.refresh, this);
-        console.log("Constructor seconds: " + this.seconds);
+        console.log("Constructor args: " + args);
+        this.duration = moment.duration.apply(moment, args).asMilliseconds();
+        console.log("Constructor duration: " + this.duration);
         this.reset();
       }
 
@@ -28,12 +32,13 @@
         hours = Math.floor(seconds / (60 * 60));
         minutes = Math.floor((seconds % 60) / 60);
         seconds = Math.floor((seconds % 60) % 60);
-        return "" + hours + ":" + minutes + ":" + this.seconds;
+        return "" + hours + ":" + minutes + ":" + seconds;
       };
 
       CountdownTimer.prototype.refresh = function() {
         var timestamp;
         console.log("Current time: " + this.seconds);
+        this.duration.subtract(1, 's');
         this.seconds--;
         timestamp = this.format_seconds(this.seconds);
         return $('.clock').html(timestamp);
@@ -47,7 +52,7 @@
         console.log("start seconds: " + this.seconds);
         console.log("start start_seconds: " + this.start_seconds);
         this.interval = setInterval(this.refresh, this.to_secs(1));
-        return setTimeout(this.stop, this.to_secs(this.start_seconds));
+        return setTimeout(this.stop, this.to_secs(this.start_seconds + 1));
       };
 
       CountdownTimer.prototype.setTime = function(seconds) {

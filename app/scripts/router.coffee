@@ -1,9 +1,9 @@
 define [
-  "jquery",
-  "underscore",
-  "backbone",
-  "moment",
-  "countdown_timer"
+  'jquery',
+  'underscore',
+  'backbone',
+  'moment',
+  'countdown_timer'
 ], ($, _, Backbone, moment, CountdownTimer) ->
 
   class AppRouter extends Backbone.Router
@@ -12,7 +12,9 @@ define [
       "": "clock"
 
     clock: ->
-      countdownTimer = new CountdownTimer(5)
+      countdownTimer = new CountdownTimer(5, 'seconds')
+
+
 
       $('button').on('click', ->
         countdownTimer.start()
