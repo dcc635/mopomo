@@ -4,6 +4,9 @@ define [
 
   class CountdownTimer
 
+    to_secs: (mils) ->
+      return mils * 1000
+
     reset: ->
       @start_seconds = @seconds
       console.log("reset seconds: #{@seconds}")
@@ -31,9 +34,8 @@ define [
     start: =>
       console.log("start seconds: #{@seconds}")
       console.log("start start_seconds: #{@start_seconds}")
-      @interval = setInterval(@refresh, 1000)
-      setTimeout(@stop, 5000)
-
+      @interval = setInterval(@refresh, @to_secs(1))
+      setTimeout(@stop, @to_secs(@start_seconds))
 
     setTime: (seconds) ->
       @seconds = seconds

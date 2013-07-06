@@ -4,6 +4,10 @@
   define(['jquery'], function($) {
     var CountdownTimer;
     return CountdownTimer = (function() {
+      CountdownTimer.prototype.to_secs = function(mils) {
+        return mils * 1000;
+      };
+
       CountdownTimer.prototype.reset = function() {
         this.start_seconds = this.seconds;
         console.log("reset seconds: " + this.seconds);
@@ -42,8 +46,8 @@
       CountdownTimer.prototype.start = function() {
         console.log("start seconds: " + this.seconds);
         console.log("start start_seconds: " + this.start_seconds);
-        this.interval = setInterval(this.refresh, 1000);
-        return setTimeout(this.stop, 5000);
+        this.interval = setInterval(this.refresh, this.to_secs(1));
+        return setTimeout(this.stop, this.to_secs(this.start_seconds));
       };
 
       CountdownTimer.prototype.setTime = function(seconds) {
