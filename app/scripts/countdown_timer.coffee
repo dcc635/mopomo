@@ -19,26 +19,20 @@ define [
       seconds = Math.floor((seconds % 60) % 60)
       return "#{hours}:#{minutes}:#{@seconds}"
 
-    refresh: ->
-
+    refresh: =>
       console.log("Current time: #{@seconds}")
       @seconds--
       timestamp = @format_seconds(@seconds)
       $('.clock').html(timestamp)
 
-    stop: ->
+    stop: =>
       clearInterval(@interval)
 
-    start: ->
+    start: =>
       console.log("start seconds: #{@seconds}")
       console.log("start start_seconds: #{@start_seconds}")
-      that = this
-      @interval = setInterval(->
-        that.refresh()
-      , 1000)
-      # setTimeout(
-      #   @stop()
-      # , @start_seconds * 1000)
+      @interval = setInterval(@refresh, 1000)
+      setTimeout(@stop, 5000)
 
 
     setTime: (seconds) ->

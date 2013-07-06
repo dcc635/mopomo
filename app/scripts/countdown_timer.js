@@ -1,4 +1,6 @@
 (function() {
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
   define(['jquery'], function($) {
     var CountdownTimer;
     return CountdownTimer = (function() {
@@ -10,6 +12,9 @@
 
       function CountdownTimer(seconds) {
         this.seconds = seconds;
+        this.start = __bind(this.start, this);
+        this.stop = __bind(this.stop, this);
+        this.refresh = __bind(this.refresh, this);
         console.log("Constructor seconds: " + this.seconds);
         this.reset();
       }
@@ -35,13 +40,10 @@
       };
 
       CountdownTimer.prototype.start = function() {
-        var that;
         console.log("start seconds: " + this.seconds);
         console.log("start start_seconds: " + this.start_seconds);
-        that = this;
-        return this.interval = setInterval(function() {
-          return that.refresh();
-        }, 1000);
+        this.interval = setInterval(this.refresh, 1000);
+        return setTimeout(this.stop, 5000);
       };
 
       CountdownTimer.prototype.setTime = function(seconds) {
