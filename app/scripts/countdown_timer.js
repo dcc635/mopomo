@@ -3,7 +3,7 @@
 
   define(['jquery', 'moment'], function($, moment) {
     var CountdownTimer, REFRESH_MS;
-    REFRESH_MS = 5;
+    REFRESH_MS = 110;
     return CountdownTimer = (function() {
       CountdownTimer.prototype.to_secs = function(mils) {
         return mils * 1000;
@@ -27,6 +27,8 @@
       CountdownTimer.prototype.refresh = function() {
         if (this.moment.hours() === 0 && this.moment.minutes() === 0 && this.moment.seconds() === 0 && this.moment.milliseconds() <= REFRESH_MS) {
           console.log('stop!');
+          this.moment = moment([0, 0, 0, 0, 0, 0, 0]);
+          this.display_moment();
           return this.stop();
         } else {
           this.moment.subtract('ms', REFRESH_MS);

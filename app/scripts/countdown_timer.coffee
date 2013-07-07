@@ -3,7 +3,7 @@ define [
   'moment'
 ], ($, moment) ->
 
-  REFRESH_MS = 5
+  REFRESH_MS = 110
 
   class CountdownTimer
 
@@ -28,6 +28,8 @@ define [
         @moment.milliseconds() <= REFRESH_MS
       )
         console.log('stop!')
+        @moment = moment([0,0,0,0,0,0,0])
+        @display_moment()
         @stop()
       else
         @moment.subtract('ms', REFRESH_MS)
