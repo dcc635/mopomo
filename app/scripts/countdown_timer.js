@@ -36,20 +36,21 @@
           elapsed_ms = this.old_moment.diff(new_moment);
           this.moment.add('ms', elapsed_ms);
           this.display_moment();
-          return this.old_moment = new_moment;
+          this.old_moment = new_moment;
+          return this.interval = setTimeout(this.refresh, REFRESH_MS);
         }
       };
 
       CountdownTimer.prototype.stop = function() {
         if (this.interval) {
-          return clearInterval(this.interval);
+          return clearTimeout(this.interval);
         }
       };
 
       CountdownTimer.prototype.start = function() {
         this.stop();
         this.old_moment = moment();
-        return this.interval = setInterval(this.refresh, REFRESH_MS);
+        return this.interval = setTimeout(this.refresh, REFRESH_MS);
       };
 
       CountdownTimer.prototype.setTime = function(ms) {

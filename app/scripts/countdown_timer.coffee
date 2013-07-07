@@ -37,15 +37,16 @@ define [
         @moment.add('ms', elapsed_ms)
         @display_moment()
         @old_moment = new_moment
+        @interval = setTimeout(@refresh, REFRESH_MS)
 
     stop: =>
       if @interval
-        clearInterval(@interval)
+        clearTimeout(@interval)
 
     start: =>
       @stop()
       @old_moment = moment()
-      @interval = setInterval(@refresh, REFRESH_MS)
+      @interval = setTimeout(@refresh, REFRESH_MS)
 
     setTime: (ms) ->
       @moment.milliseconds(ms)
