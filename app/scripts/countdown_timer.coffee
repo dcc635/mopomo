@@ -3,7 +3,7 @@ define [
   'moment'
 ], ($, moment) ->
 
-  REFRESH_MS = 110
+  REFRESH_MS = 70
 
   class CountdownTimer
 
@@ -32,8 +32,11 @@ define [
         @display_moment()
         @stop()
       else
-        @moment.subtract('ms', REFRESH_MS)
+        new_moment = moment()
+        elapsed_ms = @old_moment.diff(new_moment)
+        @moment.add('ms', elapsed_ms)
         @display_moment()
+        @old_moment = new_moment
 
     stop: =>
       if @interval
@@ -41,6 +44,7 @@ define [
 
     start: =>
       @stop()
+      @old_moment = moment()
       @interval = setInterval(@refresh, REFRESH_MS)
 
     setTime: (ms) ->
