@@ -35,10 +35,13 @@
       };
 
       CountdownTimer.prototype.stop = function() {
-        return clearInterval(this.interval);
+        if (this.interval) {
+          return clearInterval(this.interval);
+        }
       };
 
       CountdownTimer.prototype.start = function() {
+        this.stop();
         return this.interval = setInterval(this.refresh, REFRESH_MS);
       };
 

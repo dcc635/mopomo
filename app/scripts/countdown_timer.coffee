@@ -34,9 +34,11 @@ define [
         @display_moment()
 
     stop: =>
-      clearInterval(@interval)
+      if @interval
+        clearInterval(@interval)
 
     start: =>
+      @stop()
       @interval = setInterval(@refresh, REFRESH_MS)
 
     setTime: (ms) ->
