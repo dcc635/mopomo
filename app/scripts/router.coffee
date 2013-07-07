@@ -12,9 +12,7 @@ define [
       "": "clock"
 
     clock: ->
-      countdownTimer = new CountdownTimer(5, 'seconds')
-
-
+      countdownTimer = new CountdownTimer(4999)
 
       $('button').on('click', ->
         countdownTimer.start()
