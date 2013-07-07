@@ -18,15 +18,19 @@
         this.moment.hours(0);
       }
 
-      CountdownTimer.prototype.refresh = function() {
+      CountdownTimer.prototype.display_moment = function() {
         var timestamp;
+        timestamp = this.moment.format("HH:mm:ss:SS");
+        return $('.clock').html(timestamp);
+      };
+
+      CountdownTimer.prototype.refresh = function() {
         if (this.moment.hours() === 0 && this.moment.minutes() === 0 && this.moment.seconds() === 0 && this.moment.milliseconds() <= REFRESH_MS) {
           console.log('stop!');
           return this.stop();
         } else {
           this.moment.subtract('ms', REFRESH_MS);
-          timestamp = this.moment.format("HH:mm:ss:SS");
-          return $('.clock').html(timestamp);
+          return this.display_moment();
         }
       };
 
@@ -40,6 +44,13 @@
 
       CountdownTimer.prototype.setTime = function(ms) {
         return this.moment.milliseconds(ms);
+      };
+
+      CountdownTimer.prototype.reset = function() {
+        this.stop();
+        this.moment = moment(this.start_ms);
+        this.moment.hours(0);
+        return this.display_moment();
       };
 
       return CountdownTimer;

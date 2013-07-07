@@ -12,10 +12,13 @@ define [
       "": "clock"
 
     clock: ->
-      countdownTimer = new CountdownTimer(4999)
+      countdownTimer = new CountdownTimer(5000)
 
-      $('button').on('click', ->
+      $('button#start').on('click', ->
         countdownTimer.start()
+      )
+      $('button#reset').on('click', ->
+        countdownTimer.reset()
       )
 
   initialize: ->

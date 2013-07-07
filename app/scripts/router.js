@@ -20,9 +20,12 @@
 
       AppRouter.prototype.clock = function() {
         var countdownTimer;
-        countdownTimer = new CountdownTimer(4999);
-        return $('button').on('click', function() {
+        countdownTimer = new CountdownTimer(5000);
+        $('button#start').on('click', function() {
           return countdownTimer.start();
+        });
+        return $('button#reset').on('click', function() {
+          return countdownTimer.reset();
         });
       };
 

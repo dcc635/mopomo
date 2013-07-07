@@ -15,6 +15,11 @@ define [
       @moment = moment(ms)
       @moment.hours(0)
 
+
+    display_moment: ->
+        timestamp = @moment.format("HH:mm:ss:SS")
+        $('.clock').html(timestamp)
+
     refresh: =>
       if (
         @moment.hours() == 0 and
@@ -26,8 +31,7 @@ define [
         @stop()
       else
         @moment.subtract('ms', REFRESH_MS)
-        timestamp = @moment.format("HH:mm:ss:SS")
-        $('.clock').html(timestamp)
+        @display_moment()
 
     stop: =>
       clearInterval(@interval)
@@ -37,3 +41,9 @@ define [
 
     setTime: (ms) ->
       @moment.milliseconds(ms)
+
+    reset: ->
+      @stop()
+      @moment = moment(@start_ms)
+      @moment.hours(0)
+      @display_moment()
