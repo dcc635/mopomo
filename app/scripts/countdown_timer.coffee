@@ -25,7 +25,7 @@ define [
         @moment.hours() == 0 and
         @moment.minutes() == 0 and
         @moment.seconds() == 0 and
-        @moment.milliseconds() <= REFRESH_MS
+        @moment.milliseconds() <= REFRESH_MS * 2
       )
         console.log('stop!')
         @moment = moment([0,0,0,0,0,0,0])

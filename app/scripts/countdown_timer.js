@@ -26,7 +26,7 @@
 
       CountdownTimer.prototype.refresh = function() {
         var elapsed_ms, new_moment;
-        if (this.moment.hours() === 0 && this.moment.minutes() === 0 && this.moment.seconds() === 0 && this.moment.milliseconds() <= REFRESH_MS) {
+        if (this.moment.hours() === 0 && this.moment.minutes() === 0 && this.moment.seconds() === 0 && this.moment.milliseconds() <= REFRESH_MS * 2) {
           console.log('stop!');
           this.moment = moment([0, 0, 0, 0, 0, 0, 0]);
           this.display_moment();
