@@ -10,7 +10,7 @@
     "underscore-amd": "~1.4.4",
     "modernizr": "~2.6.2",
     "darkstrap": "https://github.com/danneu/darkstrap.git#~0.9.2",
-    "moment": "~2.0.0",
+    "moment": "~2.1.0",
     "jquery-timer": "https://github.com/jchavannes/jquery-timer.git"
   },
   "devDependencies": {}
