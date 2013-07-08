@@ -5,23 +5,30 @@
     var CountdownTimer, REFRESH_MS;
     REFRESH_MS = 70;
     return CountdownTimer = (function() {
-      CountdownTimer.prototype.to_secs = function(mils) {
-        return mils * 1000;
-      };
-
-      function CountdownTimer(ms) {
+      function CountdownTimer(start_ms) {
+        this.start_ms = start_ms;
         this.start = __bind(this.start, this);
         this.stop = __bind(this.stop, this);
         this.refresh = __bind(this.refresh, this);
-        this.start_ms = ms;
-        this.moment = moment(ms);
-        this.moment.hours(0);
-        this.moment.days(1);
+        this.reset();
       }
 
-      CountdownTimer.prototype.display_moment = function() {
-        var timestamp;
-        timestamp = this.moment.format("HH:mm:ss:SS");
+      CountdownTimer.prototype.padLeftZeros = function(number, padding) {
+        var numberStr;
+        numberStr = '' + number;
+        while (numberStr.length < padding) {
+          numberStr = '0' + numberStr;
+        }
+        return numberStr;
+      };
+
+      CountdownTimer.prototype.displayMoment = function() {
+        var hours, milliseconds, minutes, seconds, timestamp;
+        hours = this.padLeftZeros(this.duration.hours(), 2);
+        minutes = this.padLeftZeros(this.duration.minutes(), 2);
+        seconds = this.padLeftZeros(this.duration.seconds(), 2);
+        milliseconds = this.padLeftZeros(Math.floor(this.duration.milliseconds() / 10), 2);
+        timestamp = "" + hours + ":" + minutes + ":" + seconds + ":" + milliseconds;
         return $('.clock').html(timestamp);
       };
 
@@ -34,13 +41,16 @@
       };
 
       CountdownTimer.prototype.refresh = function() {
-        this.moment.add('ms', this.getElapsed());
-        if (this.moment.days() === 1 && this.moment.hours() === 0 && this.moment.minutes() === 0 && this.moment.seconds() === 0 && this.moment.milliseconds() <= REFRESH_MS) {
-          this.moment = moment([0, 0, 0, 0, 0, 0, 0]);
-          this.display_moment();
-          return this.stop();
+        console.log('refreshing');
+        console.log(this.duration);
+        this.duration.add(this.getElapsed(), 'ms');
+        console.log(this.duration);
+        if (this.duration.asMilliseconds() < 0) {
+          this.duration = moment.duration(0);
+          this.stop();
+          return this.displayMoment();
         } else {
-          this.display_moment();
+          this.displayMoment();
           return this.interval = setTimeout(this.refresh, REFRESH_MS);
         }
       };
@@ -54,19 +64,18 @@
       CountdownTimer.prototype.start = function() {
         this.stop();
         this.moment_last = moment();
+        console.log('setting interval');
         return this.interval = setTimeout(this.refresh, REFRESH_MS);
       };
 
-      CountdownTimer.prototype.setTime = function(ms) {
-        return this.moment.milliseconds(ms);
-      };
-
-      CountdownTimer.prototype.reset = function() {
+      CountdownTimer.prototype.reset = function(ms) {
+        if (ms == null) {
+          ms = this.start_ms;
+        }
         this.stop();
-        this.moment = moment(this.start_ms);
-        this.moment.hours(0);
-        this.moment.days(1);
-        return this.display_moment();
+        this.start_ms = ms;
+        this.duration = moment.duration(ms);
+        return this.displayMoment();
       };
 
       return CountdownTimer;

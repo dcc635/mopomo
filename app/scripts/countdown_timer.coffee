@@ -7,17 +7,21 @@ define [
 
   class CountdownTimer
 
-    to_secs: (mils) ->
-      return mils * 1000
+    constructor: (@start_ms) ->
+      @reset()
 
-    constructor: (ms) ->
-      @start_ms = ms
-      @moment = moment(ms)
-      @moment.hours(0)
-      @moment.days(1)
+    padLeftZeros: (number, padding) ->
+      numberStr = '' + number
+      while numberStr.length < padding
+        numberStr = '0' + numberStr
+      return numberStr
 
-    display_moment: ->
-      timestamp = @moment.format("HH:mm:ss:SS")
+    displayMoment: ->
+      hours = @padLeftZeros(@duration.hours(), 2)
+      minutes = @padLeftZeros(@duration.minutes(), 2)
+      seconds = @padLeftZeros(@duration.seconds(), 2)
+      milliseconds = @padLeftZeros(Math.floor(@duration.milliseconds()/10), 2)
+      timestamp = "#{hours}:#{minutes}:#{seconds}:#{milliseconds}"
       $('.clock').html(timestamp)
 
     getElapsed: ->
@@ -27,19 +31,16 @@ define [
       return elapsed
 
     refresh: =>
-      @moment.add('ms', @getElapsed())
-      if (
-        @moment.days() == 1 and
-        @moment.hours() == 0 and
-        @moment.minutes() == 0 and
-        @moment.seconds() == 0 and
-        @moment.milliseconds() <= REFRESH_MS
-      )
-        @moment = moment([0,0,0,0,0,0,0])
-        @display_moment()
+      console.log('refreshing')
+      console.log(@duration)
+      @duration.add(@getElapsed(), 'ms')
+      console.log(@duration)
+      if @duration.asMilliseconds() < 0
+        @duration = moment.duration(0)
         @stop()
+        @displayMoment()
       else
-        @display_moment()
+        @displayMoment()
         @interval = setTimeout(@refresh, REFRESH_MS)
 
     stop: =>
@@ -49,14 +50,11 @@ define [
     start: =>
       @stop()
       @moment_last = moment()
+      console.log('setting interval')
       @interval = setTimeout(@refresh, REFRESH_MS)
 
-    setTime: (ms) ->
-      @moment.milliseconds(ms)
-
-    reset: ->
+    reset: (ms=@start_ms) ->
       @stop()
-      @moment = moment(@start_ms)
-      @moment.hours(0)
-      @moment.days(1)
-      @display_moment()
+      @start_ms = ms
+      @duration = moment.duration(ms)
+      @displayMoment()
