@@ -7,7 +7,7 @@ define [
   class TimerView extends Backbone.View
 
     initialize: ->
-      return this
+      @listenTo(@model, "change", @render)
 
     render: ->
-      $('#app').html(Timer())
+      $('#app').html(Timer(@model.attributes))

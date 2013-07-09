@@ -13,11 +13,11 @@
       }
 
       TimerView.prototype.initialize = function() {
-        return this;
+        return this.listenTo(this.model, "change", this.render);
       };
 
       TimerView.prototype.render = function() {
-        return $('#app').html(Timer());
+        return $('#app').html(Timer(this.model.attributes));
       };
 
       return TimerView;

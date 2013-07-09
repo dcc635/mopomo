@@ -3,12 +3,14 @@ define [
   'underscore',
   'backbone',
   'moment',
-  'views/timer'
-], ($, _, Backbone, moment, TimerView) ->
+  'models/timermodel'
+  'views/timerview'
+], ($, _, Backbone, moment, TimerModel, TimerView) ->
 
   class AppRouter extends Backbone.Router
     initialize: ->
-      @timerView = new TimerView()
+      @timerModel = new TimerModel()
+      @timerView = new TimerView({model: @timerModel})
 
     routes: ->
       '': 'timer'

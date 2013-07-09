@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'moment', 'views/timer'], function($, _, Backbone, moment, TimerView) {
+  define(['jquery', 'underscore', 'backbone', 'moment', 'models/timermodel', 'views/timerview'], function($, _, Backbone, moment, TimerModel, TimerView) {
     var AppRouter, _ref;
     AppRouter = (function(_super) {
       __extends(AppRouter, _super);
@@ -13,7 +13,10 @@
       }
 
       AppRouter.prototype.initialize = function() {
-        return this.timerView = new TimerView();
+        this.timerModel = new TimerModel();
+        return this.timerView = new TimerView({
+          model: this.timerModel
+        });
       };
 
       AppRouter.prototype.routes = function() {
