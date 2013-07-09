@@ -31,17 +31,13 @@ define [
       return elapsed
 
     refresh: =>
-      console.log('refreshing')
-      console.log(@duration)
       @duration.add(@getElapsed(), 'ms')
-      console.log(@duration)
-      if @duration.asMilliseconds() < 0
+      if @duration.asMilliseconds() <= 0
         @duration = moment.duration(0)
         @stop()
-        @displayMoment()
       else
-        @displayMoment()
         @interval = setTimeout(@refresh, REFRESH_MS)
+      @displayMoment()
 
     stop: =>
       if @interval
@@ -50,7 +46,6 @@ define [
     start: =>
       @stop()
       @moment_last = moment()
-      console.log('setting interval')
       @interval = setTimeout(@refresh, REFRESH_MS)
 
     reset: (ms=@start_ms) ->

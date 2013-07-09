@@ -41,18 +41,14 @@
       };
 
       CountdownTimer.prototype.refresh = function() {
-        console.log('refreshing');
-        console.log(this.duration);
         this.duration.add(this.getElapsed(), 'ms');
-        console.log(this.duration);
-        if (this.duration.asMilliseconds() < 0) {
+        if (this.duration.asMilliseconds() <= 0) {
           this.duration = moment.duration(0);
           this.stop();
-          return this.displayMoment();
         } else {
-          this.displayMoment();
-          return this.interval = setTimeout(this.refresh, REFRESH_MS);
+          this.interval = setTimeout(this.refresh, REFRESH_MS);
         }
+        return this.displayMoment();
       };
 
       CountdownTimer.prototype.stop = function() {
@@ -64,7 +60,6 @@
       CountdownTimer.prototype.start = function() {
         this.stop();
         this.moment_last = moment();
-        console.log('setting interval');
         return this.interval = setTimeout(this.refresh, REFRESH_MS);
       };
 

@@ -12,6 +12,8 @@ var mountFolder = function (connect, dir) {
 // templateFramework: 'lodash'
 
 module.exports = function (grunt) {
+    grunt.loadNpmTasks('grunt-contrib-handlebars');
+    grunt.loadNpmTasks('grunt-handlebars-requirejs')
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
@@ -50,7 +52,7 @@ module.exports = function (grunt) {
                     '<%= yeoman.app %>/scripts/templates/*.ejs'
                 ],
                 tasks: ['jst']
-            }
+            },
         },
         connect: {
             options: {
@@ -124,7 +126,7 @@ module.exports = function (grunt) {
                     // require them into your main .coffee file
                     expand: true,
                     cwd: '<%= yeoman.app %>/scripts',
-                    src: '*.coffee',
+                    src: '{,*/}*.coffee',
                     //dest: '.tmp/scripts',
                     //dest: './',
                     dest: '<%= yeoman.app %>/scripts',
@@ -262,6 +264,13 @@ module.exports = function (grunt) {
                     '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.ejs']
                 }
             }
+        },
+        handlebars_requirejs: {
+          basic: {
+            files: {
+              '.tmp/scripts/hbs-templates.js': ['<%= yeoman.app %>/scripts/templates/*.hbs']
+            },
+          }
         }
     });
 
@@ -321,4 +330,6 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+
 };

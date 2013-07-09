@@ -3,23 +3,18 @@ define [
   'underscore',
   'backbone',
   'moment',
-  'countdown_timer'
-], ($, _, Backbone, moment, CountdownTimer) ->
+  'views/timer'
+], ($, _, Backbone, moment, TimerView) ->
 
   class AppRouter extends Backbone.Router
+    initialize: ->
+      @timerView = new TimerView()
 
     routes: ->
-      "": "clock"
+      '': 'timer'
 
-    clock: ->
-      countdownTimer = new CountdownTimer(5000)
-
-      $('button#start').on('click', ->
-        countdownTimer.start()
-      )
-      $('button#reset').on('click', ->
-        countdownTimer.reset()
-      )
+    timer: ->
+      $('#app').html(this.timerView.render().el);
 
   initialize: ->
-    app_router = new AppRouter()
+    appRouter = new AppRouter()

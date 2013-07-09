@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'moment', 'countdown_timer'], function($, _, Backbone, moment, CountdownTimer) {
+  define(['jquery', 'underscore', 'backbone', 'moment', 'views/timer'], function($, _, Backbone, moment, TimerView) {
     var AppRouter, _ref;
     AppRouter = (function(_super) {
       __extends(AppRouter, _super);
@@ -12,21 +12,18 @@
         return _ref;
       }
 
+      AppRouter.prototype.initialize = function() {
+        return this.timerView = new TimerView();
+      };
+
       AppRouter.prototype.routes = function() {
         return {
-          "": "clock"
+          '': 'timer'
         };
       };
 
-      AppRouter.prototype.clock = function() {
-        var countdownTimer;
-        countdownTimer = new CountdownTimer(5000);
-        $('button#start').on('click', function() {
-          return countdownTimer.start();
-        });
-        return $('button#reset').on('click', function() {
-          return countdownTimer.reset();
-        });
+      AppRouter.prototype.timer = function() {
+        return $('#app').html(this.timerView.render().el);
       };
 
       return AppRouter;
@@ -34,8 +31,8 @@
     })(Backbone.Router);
     return {
       initialize: function() {
-        var app_router;
-        return app_router = new AppRouter();
+        var appRouter;
+        return appRouter = new AppRouter();
       }
     };
   });
