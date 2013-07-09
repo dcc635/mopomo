@@ -12,7 +12,6 @@ var mountFolder = function (connect, dir) {
 // templateFramework: 'lodash'
 
 module.exports = function (grunt) {
-    grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-handlebars-requirejs')
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
