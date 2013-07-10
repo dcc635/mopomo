@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'backbone', 'hbs!template/timer'], function($, Backbone, Timer) {
+  define(['jquery', 'backbone', 'hbs!template/timer'], function($, Backbone, TimerTemplate) {
     var TimerView, _ref;
     return TimerView = (function(_super) {
       __extends(TimerView, _super);
@@ -17,7 +17,13 @@
       };
 
       TimerView.prototype.render = function() {
-        return $('#app').html(Timer(this.model.attributes));
+        this.$el.html(TimerTemplate(this.model.attributes));
+        this.delegateEvents({
+          'click button#start': '@model.start'
+        });
+        return this.delegateEvents({
+          'click button#reset': '@model.reset'
+        });
       };
 
       return TimerView;

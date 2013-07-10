@@ -13,7 +13,7 @@
       }
 
       AppRouter.prototype.initialize = function() {
-        this.timerModel = new TimerModel();
+        this.timerModel = new TimerModel(5000);
         return this.timerView = new TimerView({
           model: this.timerModel
         });

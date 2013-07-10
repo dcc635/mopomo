@@ -42,7 +42,8 @@ module.exports = function (grunt) {
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                    '<%= yeoman.app %>/scripts/template/**/*.hbs'
                 ],
                 tasks: ['livereload']
             },
@@ -267,7 +268,7 @@ module.exports = function (grunt) {
         handlebars_requirejs: {
           basic: {
             files: {
-              '.tmp/scripts/hbs-templates.js': ['<%= yeoman.app %>/scripts/templates/*.hbs']
+              '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/template/**/*.hbs']
             },
           }
         }

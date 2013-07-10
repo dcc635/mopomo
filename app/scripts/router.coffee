@@ -9,7 +9,7 @@ define [
 
   class AppRouter extends Backbone.Router
     initialize: ->
-      @timerModel = new TimerModel()
+      @timerModel = new TimerModel(5000)
       @timerView = new TimerView({model: @timerModel})
 
     routes: ->

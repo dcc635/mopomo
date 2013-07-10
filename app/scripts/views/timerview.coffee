@@ -2,7 +2,7 @@ define [
   'jquery',
   'backbone',
   'hbs!template/timer'
-], ($, Backbone, Timer) ->
+], ($, Backbone, TimerTemplate) ->
 
   class TimerView extends Backbone.View
 
@@ -10,4 +10,10 @@ define [
       @listenTo(@model, "change", @render)
 
     render: ->
-      $('#app').html(Timer(@model.attributes))
+      this.$el.html(TimerTemplate(@model.attributes))
+      this.delegateEvents({
+        'click button#start': '@model.start'
+      })
+      this.delegateEvents({
+        'click button#reset': '@model.reset'
+      })
