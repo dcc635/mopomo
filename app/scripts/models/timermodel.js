@@ -6,6 +6,8 @@
   define(['jquery', 'backbone', 'moment'], function($, Backbone) {
     var TimerModel, _ref;
     return TimerModel = (function(_super) {
+      var REFRESH_MS;
+
       __extends(TimerModel, _super);
 
       function TimerModel() {
@@ -16,6 +18,8 @@
         _ref = TimerModel.__super__.constructor.apply(this, arguments);
         return _ref;
       }
+
+      REFRESH_MS = 70;
 
       TimerModel.prototype.defaults = {
         hours: '00',

@@ -26,7 +26,14 @@
       };
 
       AppRouter.prototype.timer = function() {
-        return $('#app').html(this.timerView.render().el);
+        var _this = this;
+        this.timerView.render();
+        $('button#start').on('click', function() {
+          return _this.timerView.start();
+        });
+        return $('button#reset').on('click', function() {
+          return _this.timerView.reset();
+        });
       };
 
       return AppRouter;

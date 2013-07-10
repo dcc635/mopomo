@@ -16,7 +16,13 @@ define [
       '': 'timer'
 
     timer: ->
-      $('#app').html(this.timerView.render().el);
+      @timerView.render();
+      $('button#start').on('click', =>
+        @timerView.start()
+      )
+      $('button#reset').on('click', =>
+        @timerView.reset()
+      )
 
   initialize: ->
     appRouter = new AppRouter()

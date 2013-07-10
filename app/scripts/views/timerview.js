@@ -16,14 +16,16 @@
         return this.listenTo(this.model, "change", this.render);
       };
 
+      TimerView.prototype.start = function() {
+        return this.model.start();
+      };
+
+      TimerView.prototype.reset = function() {
+        return this.model.reset();
+      };
+
       TimerView.prototype.render = function() {
-        this.$el.html(TimerTemplate(this.model.attributes));
-        this.delegateEvents({
-          'click button#start': '@model.start'
-        });
-        return this.delegateEvents({
-          'click button#reset': '@model.reset'
-        });
+        return $('#app').html(TimerTemplate(this.model.attributes));
       };
 
       return TimerView;

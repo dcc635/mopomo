@@ -9,11 +9,11 @@ define [
     initialize: ->
       @listenTo(@model, "change", @render)
 
+    start: ->
+      @model.start()
+
+    reset: ->
+      @model.reset()
+
     render: ->
-      this.$el.html(TimerTemplate(@model.attributes))
-      this.delegateEvents({
-        'click button#start': '@model.start'
-      })
-      this.delegateEvents({
-        'click button#reset': '@model.reset'
-      })
+      $('#app').html(TimerTemplate(@model.attributes));

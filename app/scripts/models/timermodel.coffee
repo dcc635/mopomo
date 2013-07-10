@@ -5,6 +5,8 @@ define [
 ], ($, Backbone) ->
 
   class TimerModel extends Backbone.Model
+    REFRESH_MS = 70
+
     defaults: {
       hours: '00',
       minutes: '00',
