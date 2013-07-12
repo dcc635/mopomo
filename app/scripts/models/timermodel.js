@@ -22,33 +22,15 @@
       REFRESH_MS = 70;
 
       TimerModel.prototype.defaults = {
-        hours: '00',
-        minutes: '00',
-        seconds: '00',
-        milliseconds: '00'
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        milliseconds: 0
       };
 
       TimerModel.prototype.initialize = function(start_ms) {
         this.start_ms = start_ms;
         return this.reset();
-      };
-
-      TimerModel.prototype.padLeftZeros = function(number, padding) {
-        var numberStr;
-        numberStr = '' + number;
-        while (numberStr.length < padding) {
-          numberStr = '0' + numberStr;
-        }
-        return numberStr;
-      };
-
-      TimerModel.prototype.displayMoment = function() {
-        return this.set({
-          hours: this.padLeftZeros(this.duration.hours(), 2),
-          minutes: this.padLeftZeros(this.duration.minutes(), 2),
-          seconds: this.padLeftZeros(this.duration.seconds(), 2),
-          milliseconds: this.padLeftZeros(Math.floor(this.duration.milliseconds() / 10), 2)
-        });
       };
 
       TimerModel.prototype.getElapsed = function() {
@@ -59,15 +41,26 @@
         return elapsed;
       };
 
+      TimerModel.prototype.save_duration = function() {
+        return this.set({
+          hours: this.duration.hours(),
+          minutes: this.duration.minutes(),
+          seconds: this.duration.seconds(),
+          milliseconds: this.duration.milliseconds()
+        });
+      };
+
       TimerModel.prototype.refresh = function() {
-        this.duration.add(this.getElapsed(), 'ms');
+        var elapsed;
+        elapsed = this.getElapsed();
+        this.duration = this.duration.add(elapsed, 'ms');
         if (this.duration.asMilliseconds() <= 0) {
           this.duration = moment.duration(0);
           this.stop();
         } else {
           this.interval = setTimeout(this.refresh, REFRESH_MS);
         }
-        return this.displayMoment();
+        return this.save_duration();
       };
 
       TimerModel.prototype.stop = function() {
@@ -87,9 +80,8 @@
           ms = this.start_ms;
         }
         this.stop();
-        this.start_ms = ms;
         this.duration = moment.duration(ms);
-        return this.displayMoment();
+        return this.save_duration();
       };
 
       return TimerModel;

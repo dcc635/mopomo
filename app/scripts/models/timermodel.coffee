@@ -8,28 +8,14 @@ define [
     REFRESH_MS = 70
 
     defaults: {
-      hours: '00',
-      minutes: '00',
-      seconds: '00',
-      milliseconds: '00'
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
     }
 
     initialize: (@start_ms) =>
       @reset()
-
-    padLeftZeros: (number, padding) ->
-      numberStr = '' + number
-      while numberStr.length < padding
-        numberStr = '0' + numberStr
-      return numberStr
-
-    displayMoment: ->
-      @set({
-        hours: @padLeftZeros(@duration.hours(), 2)
-        minutes: @padLeftZeros(@duration.minutes(), 2)
-        seconds: @padLeftZeros(@duration.seconds(), 2)
-        milliseconds: @padLeftZeros(Math.floor(@duration.milliseconds()/10), 2)
-      })
 
     getElapsed: ->
       moment_now = moment()
@@ -37,14 +23,23 @@ define [
       @moment_last = moment_now
       return elapsed
 
+    save_duration: ->
+      @set({
+        hours: @duration.hours()
+        minutes: @duration.minutes()
+        seconds: @duration.seconds()
+        milliseconds: @duration.milliseconds()
+      })
+
     refresh: =>
-      @duration.add(@getElapsed(), 'ms')
+      elapsed = @getElapsed()
+      @duration = @duration.add(elapsed, 'ms')
       if @duration.asMilliseconds() <= 0
         @duration = moment.duration(0)
         @stop()
       else
         @interval = setTimeout(@refresh, REFRESH_MS)
-      @displayMoment()
+      @save_duration()
 
     stop: =>
       if @interval
@@ -57,6 +52,5 @@ define [
 
     reset: (ms=@start_ms) ->
       @stop()
-      @start_ms = ms
       @duration = moment.duration(ms)
-      @displayMoment()
+      @save_duration()

@@ -9,6 +9,12 @@ define [
     initialize: ->
       @listenTo(@model, "change", @render)
 
+    padLeftZeros: (number, padding) ->
+      numberStr = '' + number
+      while numberStr.length < padding
+        numberStr = '0' + numberStr
+      return numberStr
+
     start: ->
       @model.start()
 
@@ -16,4 +22,9 @@ define [
       @model.reset()
 
     render: ->
-      $('#app').html(TimerTemplate(@model.attributes));
+      $('#app').html(TimerTemplate({
+        hours: @padLeftZeros(@model.attributes.hours, 2)
+        minutes: @padLeftZeros(@model.attributes.minutes, 2)
+        seconds: @padLeftZeros(@model.attributes.seconds, 2)
+        milliseconds: @padLeftZeros(Math.floor(@model.attributes.milliseconds/10), 2)
+      }));

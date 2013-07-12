@@ -16,6 +16,15 @@
         return this.listenTo(this.model, "change", this.render);
       };
 
+      TimerView.prototype.padLeftZeros = function(number, padding) {
+        var numberStr;
+        numberStr = '' + number;
+        while (numberStr.length < padding) {
+          numberStr = '0' + numberStr;
+        }
+        return numberStr;
+      };
+
       TimerView.prototype.start = function() {
         return this.model.start();
       };
@@ -25,7 +34,12 @@
       };
 
       TimerView.prototype.render = function() {
-        return $('#app').html(TimerTemplate(this.model.attributes));
+        return $('#app').html(TimerTemplate({
+          hours: this.padLeftZeros(this.model.attributes.hours, 2),
+          minutes: this.padLeftZeros(this.model.attributes.minutes, 2),
+          seconds: this.padLeftZeros(this.model.attributes.seconds, 2),
+          milliseconds: this.padLeftZeros(Math.floor(this.model.attributes.milliseconds / 10), 2)
+        }));
       };
 
       return TimerView;
