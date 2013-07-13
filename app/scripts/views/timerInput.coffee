@@ -12,9 +12,9 @@ define [
 
     reset: ->
       @model.set({
-        hours: 0
-        minutes: 0
-        seconds: 7
+        hours: $('#hours').val()
+        minutes: $('#minutes').val()
+        seconds: $('#seconds').val()
         milliseconds: 0
       })
       @model.reset()
