@@ -11,7 +11,7 @@ define [
   class AppRouter extends Backbone.Router
 
     initialize: ->
-      @timerModel = new TimerModel(5000)
+      @timerModel = new TimerModel()
       @timerInputView = new TimerInputView({model: @timerModel})
       @timerOutputView = new TimerOutputView({model: @timerModel})
 

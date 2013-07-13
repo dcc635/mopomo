@@ -28,8 +28,7 @@
         milliseconds: 0
       };
 
-      TimerModel.prototype.initialize = function(start_ms) {
-        this.start_ms = start_ms;
+      TimerModel.prototype.initialize = function() {
         return this.reset();
       };
 
@@ -75,12 +74,9 @@
         return this.interval = setTimeout(this.refresh, REFRESH_MS);
       };
 
-      TimerModel.prototype.reset = function(ms) {
-        if (ms == null) {
-          ms = this.start_ms;
-        }
+      TimerModel.prototype.reset = function() {
         this.stop();
-        this.duration = moment.duration(ms);
+        this.duration = moment.duration(this.attributes);
         return this.save_duration();
       };
 

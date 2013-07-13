@@ -14,7 +14,7 @@ define [
       milliseconds: 0
     }
 
-    initialize: (@start_ms) =>
+    initialize: =>
       @reset()
 
     getElapsed: ->
@@ -50,7 +50,7 @@ define [
       @moment_last = moment()
       @interval = setTimeout(@refresh, REFRESH_MS)
 
-    reset: (ms=@start_ms) ->
+    reset: ->
       @stop()
-      @duration = moment.duration(ms)
+      @duration = moment.duration(@attributes)
       @save_duration()

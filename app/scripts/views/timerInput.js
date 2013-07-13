@@ -13,15 +13,21 @@
       }
 
       TimerInputView.prototype.start = function() {
+        this.reset();
         return this.model.start();
       };
 
       TimerInputView.prototype.reset = function() {
+        this.model.set({
+          hours: 0,
+          minutes: 0,
+          seconds: 7,
+          milliseconds: 0
+        });
         return this.model.reset();
       };
 
       TimerInputView.prototype.render = function() {
-        console.log(TimerInputTemplate());
         this.$el.html(TimerInputTemplate());
         this.delegateEvents({
           'click button#start': 'start',
