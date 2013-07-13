@@ -3,26 +3,24 @@ define [
   'underscore',
   'backbone',
   'moment',
-  'models/timermodel'
-  'views/timerview'
-], ($, _, Backbone, moment, TimerModel, TimerView) ->
+  'models/timer'
+  'views/timerInput'
+  'views/timerOutput'
+], ($, _, Backbone, moment, TimerModel, TimerInputView, TimerOutputView) ->
 
   class AppRouter extends Backbone.Router
+
     initialize: ->
       @timerModel = new TimerModel(5000)
-      @timerView = new TimerView({model: @timerModel})
+      @timerInputView = new TimerInputView({model: @timerModel})
+      @timerOutputView = new TimerOutputView({model: @timerModel})
 
     routes: ->
       '': 'timer'
 
     timer: ->
-      @timerView.render();
-      $('button#start').on('click', =>
-        @timerView.start()
-      )
-      $('button#reset').on('click', =>
-        @timerView.reset()
-      )
+      $('#timer-input').html(@timerInputView.render().el);
+      $('#timer-output').html(@timerOutputView.render().el);
 
   initialize: ->
     appRouter = new AppRouter()
