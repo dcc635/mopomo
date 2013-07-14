@@ -2,9 +2,10 @@ define [
   'jquery',
   'backbone',
   'moment'
-], ($, Backbone) ->
+], ($, Backbone, Moment) ->
 
   class TimerModel extends Backbone.Model
+
     REFRESH_MS = 70
 
     defaults: {
@@ -18,14 +19,14 @@ define [
       @reset()
 
     getElapsed: ->
-      moment_now = moment()
+      moment_now = Moment()
       elapsed = @moment_last.diff(moment_now)
       @moment_last = moment_now
       return elapsed
 
     save_duration: ->
       @set({
-        hours: @duration.hours()
+        hours: Math.floor(@duration.asHours())
         minutes: @duration.minutes()
         seconds: @duration.seconds()
         milliseconds: @duration.milliseconds()
@@ -35,7 +36,7 @@ define [
       elapsed = @getElapsed()
       @duration = @duration.add(elapsed, 'ms')
       if @duration.asMilliseconds() <= 0
-        @duration = moment.duration(0)
+        @duration = Moment.duration(0)
         @stop()
       else
         @interval = setTimeout(@refresh, REFRESH_MS)
@@ -47,10 +48,10 @@ define [
 
     start: =>
       @stop()
-      @moment_last = moment()
+      @moment_last = Moment()
       @interval = setTimeout(@refresh, REFRESH_MS)
 
     reset: ->
       @stop()
-      @duration = moment.duration(@attributes)
+      @duration = Moment.duration(@attributes)
       @save_duration()

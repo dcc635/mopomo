@@ -4,15 +4,17 @@ define [
   'backbone',
   'moment',
   'models/timer'
+  'models/timerInput'
   'views/timerInput'
   'views/timerOutput'
-], ($, _, Backbone, moment, TimerModel, TimerInputView, TimerOutputView) ->
+], ($, _, Backbone, moment, TimerModel, TimerInputModel, TimerInputView, TimerOutputView) ->
 
   class AppRouter extends Backbone.Router
 
     initialize: ->
+      @timerInputModel = new TimerInputModel()
       @timerModel = new TimerModel()
-      @timerInputView = new TimerInputView({model: @timerModel})
+      @timerInputView = new TimerInputView(@timerInputModel, @timerModel)
       @timerOutputView = new TimerOutputView({model: @timerModel})
 
     routes: ->

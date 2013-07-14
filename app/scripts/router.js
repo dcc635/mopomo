@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'underscore', 'backbone', 'moment', 'models/timer', 'views/timerInput', 'views/timerOutput'], function($, _, Backbone, moment, TimerModel, TimerInputView, TimerOutputView) {
+  define(['jquery', 'underscore', 'backbone', 'moment', 'models/timer', 'models/timerInput', 'views/timerInput', 'views/timerOutput'], function($, _, Backbone, moment, TimerModel, TimerInputModel, TimerInputView, TimerOutputView) {
     var AppRouter, _ref;
     AppRouter = (function(_super) {
       __extends(AppRouter, _super);
@@ -13,10 +13,9 @@
       }
 
       AppRouter.prototype.initialize = function() {
+        this.timerInputModel = new TimerInputModel();
         this.timerModel = new TimerModel();
-        this.timerInputView = new TimerInputView({
-          model: this.timerModel
-        });
+        this.timerInputView = new TimerInputView(this.timerInputModel, this.timerModel);
         return this.timerOutputView = new TimerOutputView({
           model: this.timerModel
         });

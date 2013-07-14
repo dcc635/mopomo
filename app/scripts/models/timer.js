@@ -3,7 +3,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'backbone', 'moment'], function($, Backbone) {
+  define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
     var TimerModel, _ref;
     return TimerModel = (function(_super) {
       var REFRESH_MS;
@@ -34,7 +34,7 @@
 
       TimerModel.prototype.getElapsed = function() {
         var elapsed, moment_now;
-        moment_now = moment();
+        moment_now = Moment();
         elapsed = this.moment_last.diff(moment_now);
         this.moment_last = moment_now;
         return elapsed;
@@ -42,7 +42,7 @@
 
       TimerModel.prototype.save_duration = function() {
         return this.set({
-          hours: this.duration.hours(),
+          hours: Math.floor(this.duration.asHours()),
           minutes: this.duration.minutes(),
           seconds: this.duration.seconds(),
           milliseconds: this.duration.milliseconds()
@@ -54,7 +54,7 @@
         elapsed = this.getElapsed();
         this.duration = this.duration.add(elapsed, 'ms');
         if (this.duration.asMilliseconds() <= 0) {
-          this.duration = moment.duration(0);
+          this.duration = Moment.duration(0);
           this.stop();
         } else {
           this.interval = setTimeout(this.refresh, REFRESH_MS);
@@ -70,13 +70,13 @@
 
       TimerModel.prototype.start = function() {
         this.stop();
-        this.moment_last = moment();
+        this.moment_last = Moment();
         return this.interval = setTimeout(this.refresh, REFRESH_MS);
       };
 
       TimerModel.prototype.reset = function() {
         this.stop();
-        this.duration = moment.duration(this.attributes);
+        this.duration = Moment.duration(this.attributes);
         return this.save_duration();
       };
 
