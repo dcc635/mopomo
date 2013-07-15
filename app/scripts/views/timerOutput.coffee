@@ -11,8 +11,6 @@ define [
       @listenTo(@model, "change", @render)
 
     render: ->
-      console.log(Backbone)
-      console.log(Util)
       this.$el.html(TimerOutputTemplate({
         hours: Util.padLeftZeros(@model.attributes.hours, 2)
         minutes: Util.padLeftZeros(@model.attributes.minutes, 2)

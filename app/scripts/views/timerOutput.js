@@ -17,8 +17,6 @@
       };
 
       TimerOutputView.prototype.render = function() {
-        console.log(Backbone);
-        console.log(Util);
         this.$el.html(TimerOutputTemplate({
           hours: Util.padLeftZeros(this.model.attributes.hours, 2),
           minutes: Util.padLeftZeros(this.model.attributes.minutes, 2),
