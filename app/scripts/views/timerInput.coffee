@@ -23,15 +23,20 @@ define [
       @timerModel.reset()
 
     format: ->
-      $('#hours').val(Util.padLeftZeros($('#hours').val(), 2))
-      $('#minutes').val(Util.padLeftZeros($('#minutes').val(), 2))
-      $('#seconds').val(Util.padLeftZeros($('#seconds').val(), 2))
+      for id in ['#hours', '#minutes', '#seconds']
+        $(id).val(Util.padLeftZeros($(id).val(), 2))
+
+    allow_only_numerals: ->
+      for id in ['#hours', '#minutes', '#seconds']
+        if (/\D/g.test($(id).val()))
+          $(id).val($(id).val().replace(/\D/g, ''))
 
     render: ->
       this.$el.html(TimerInputTemplate(@timerInputModel.attributes))
       @delegateEvents({
         'click button#start': 'start'
         'click button#reset': 'resetOutput'
+        'keyup input': 'allow_only_numerals'
         'focusout input': 'format'
       })
       return this
