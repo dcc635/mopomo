@@ -1,8 +1,8 @@
 <form class="form-inline" action="/#">
     <fieldset>
-        <input id="hours" type="number" step="1" class="clock-input focused" placeholder="00" maxlength="2" pattern="[0-9]*"></input>
-        <input id="minutes" type="number" step="1" class="clock-input focused" placeholder="00" maxlength="2" pattern="[0-9]*"></input>
-        <input id="seconds" type="number" step="1" class="clock-input focused" placeholder="00" maxlength="2" pattern="[0-9]*"></input>
+        <input id="hours" type="number" step="1" class="clock-input focused" placeholder="00" maxlength="2" pattern="[0-9]*" onclick="this.select()"></input>
+        <input id="minutes" type="number" step="1" class="clock-input focused" placeholder="00" maxlength="2" pattern="[0-9]*" onclick="this.select()"></input>
+        <input id="seconds" type="number" step="1" class="clock-input focused" placeholder="00" maxlength="2" pattern="[0-9]* "onclick="this.select()"></input>
         <button id="start" type="button" class="btn btn-primary btn-large">Start</button>
         <button id="reset" type="button" class="btn btn-info btn-large">Reset</button>
     </fieldset>

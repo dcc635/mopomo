@@ -58,6 +58,10 @@
         return _results;
       };
 
+      TimerInputView.prototype.focus = function() {
+        return $(this.select());
+      };
+
       TimerInputView.prototype.render = function() {
         this.$el.html(TimerInputTemplate(this.timerInputModel.attributes));
         this.delegateEvents({

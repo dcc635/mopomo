@@ -31,6 +31,9 @@ define [
         if (/\D/g.test($(id).val()))
           $(id).val($(id).val().replace(/\D/g, ''))
 
+    focus: ->
+      $(this.select())
+
     render: ->
       this.$el.html(TimerInputTemplate(@timerInputModel.attributes))
       @delegateEvents({
