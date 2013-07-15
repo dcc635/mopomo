@@ -10,6 +10,8 @@ define [
     initialize: (@timerInputModel, @timerModel) ->
 
     start: ->
+      if window.webkitNotifications.checkPermission() is not 0
+        window.webkitNotifications.requestPermission()
       @resetOutput()
       @timerModel.start()
 

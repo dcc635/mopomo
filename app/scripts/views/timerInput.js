@@ -18,6 +18,9 @@
       };
 
       TimerInputView.prototype.start = function() {
+        if (window.webkitNotifications.checkPermission() === !0) {
+          window.webkitNotifications.requestPermission();
+        }
         this.resetOutput();
         return this.timerModel.start();
       };

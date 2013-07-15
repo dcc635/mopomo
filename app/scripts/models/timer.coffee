@@ -35,11 +35,23 @@ define [
     refresh: =>
       elapsed = @getElapsed()
       @duration = @duration.add(elapsed, 'ms')
-      if @duration.asMilliseconds() <= 0
+      if @duration.asMilliseconds() > 0
+        @interval = setTimeout(@refresh, REFRESH_MS)
+      else
         @duration = Moment.duration(0)
         @stop()
-      else
-        @interval = setTimeout(@refresh, REFRESH_MS)
+        if window.webkitNotifications.checkPermission() == 0
+          @notification = window.webkitNotifications.createNotification(
+            '', 'MoPomo Complete', 'Click to return to timer'
+          )
+          @notification.show()
+        audioElement = document.createElement('audio')
+        audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV')
+        audioElement.setAttribute('autoplay', 'autoplay')
+        $.get()
+        audioElement.addEventListener("load", ->
+          audioElement.play()
+        , true);
       @save_duration()
 
     stop: =>

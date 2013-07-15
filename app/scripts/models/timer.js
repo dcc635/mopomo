@@ -50,14 +50,25 @@
       };
 
       TimerModel.prototype.refresh = function() {
-        var elapsed;
+        var audioElement, elapsed;
         elapsed = this.getElapsed();
         this.duration = this.duration.add(elapsed, 'ms');
-        if (this.duration.asMilliseconds() <= 0) {
+        if (this.duration.asMilliseconds() > 0) {
+          this.interval = setTimeout(this.refresh, REFRESH_MS);
+        } else {
           this.duration = Moment.duration(0);
           this.stop();
-        } else {
-          this.interval = setTimeout(this.refresh, REFRESH_MS);
+          if (window.webkitNotifications.checkPermission() === 0) {
+            this.notification = window.webkitNotifications.createNotification('', 'MoPomo Complete', 'Click to return to timer');
+            this.notification.show();
+          }
+          audioElement = document.createElement('audio');
+          audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV');
+          audioElement.setAttribute('autoplay', 'autoplay');
+          $.get();
+          audioElement.addEventListener("load", function() {
+            return audioElement.play();
+          }, true);
         }
         return this.save_duration();
       };
