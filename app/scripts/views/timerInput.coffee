@@ -2,16 +2,20 @@ define [
   'jquery',
   'backbone',
   'util',
-  'hbs!template/timerInput'
-], ($, Backbone, Util, TimerInputTemplate) ->
+  'hbs!template/timerInput',
+  'modernizr'
+], ($, Backbone, Util, TimerInputTemplate, Modernizr) ->
 
   class TimerInputView extends Backbone.View
 
     initialize: (@timerInputModel, @timerModel) ->
 
     start: ->
-      if window.webkitNotifications.checkPermission() is not 0
-        window.webkitNotifications.requestPermission()
+      Modernizr.addTest('notifications', ->
+        console.log(!!(window.webkitNotifications || window.mozNotifications || window.oNotifications || window.msNotifications || window.notifications))
+        if window.webkitNotifications.checkPermission() is not 0
+          window.webkitNotifications.requestPermission()
+      )
       @resetOutput()
       @timerModel.start()
 

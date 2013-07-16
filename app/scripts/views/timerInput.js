@@ -2,7 +2,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'backbone', 'util', 'hbs!template/timerInput'], function($, Backbone, Util, TimerInputTemplate) {
+  define(['jquery', 'backbone', 'util', 'hbs!template/timerInput', 'modernizr'], function($, Backbone, Util, TimerInputTemplate, Modernizr) {
     var TimerInputView, _ref;
     return TimerInputView = (function(_super) {
       __extends(TimerInputView, _super);
@@ -18,9 +18,12 @@
       };
 
       TimerInputView.prototype.start = function() {
-        if (window.webkitNotifications.checkPermission() === !0) {
-          window.webkitNotifications.requestPermission();
-        }
+        Modernizr.addTest('notifications', function() {
+          console.log(!!(window.webkitNotifications || window.mozNotifications || window.oNotifications || window.msNotifications || window.notifications));
+          if (window.webkitNotifications.checkPermission() === !0) {
+            return window.webkitNotifications.requestPermission();
+          }
+        });
         this.resetOutput();
         return this.timerModel.start();
       };

@@ -1,8 +1,9 @@
 define [
   'jquery',
   'backbone',
-  'moment'
-], ($, Backbone, Moment) ->
+  'moment',
+  'modernizr'
+], ($, Backbone, Moment, Modernizr) ->
 
   class TimerModel extends Backbone.Model
 
@@ -40,11 +41,13 @@ define [
       else
         @duration = Moment.duration(0)
         @stop()
-        if window.webkitNotifications.checkPermission() == 0
-          @notification = window.webkitNotifications.createNotification(
-            '', 'MoPomo Complete', 'Click to return to timer'
-          )
-          @notification.show()
+        Modernizr.addTest('notifications', ->
+          if window.webkitNotifications.checkPermission() == 0
+            @notification = window.webkitNotifications.createNotification(
+              '', 'MoPomo Complete', 'Click to return to timer'
+            )
+            @notification.show()
+        )
         audioElement = document.createElement('audio')
         audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV')
         audioElement.setAttribute('autoplay', 'autoplay')

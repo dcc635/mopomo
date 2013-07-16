@@ -3,7 +3,7 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['jquery', 'backbone', 'moment'], function($, Backbone, Moment) {
+  define(['jquery', 'backbone', 'moment', 'modernizr'], function($, Backbone, Moment, Modernizr) {
     var TimerModel, _ref;
     return TimerModel = (function(_super) {
       var REFRESH_MS;
@@ -58,10 +58,12 @@
         } else {
           this.duration = Moment.duration(0);
           this.stop();
-          if (window.webkitNotifications.checkPermission() === 0) {
-            this.notification = window.webkitNotifications.createNotification('', 'MoPomo Complete', 'Click to return to timer');
-            this.notification.show();
-          }
+          Modernizr.addTest('notifications', function() {
+            if (window.webkitNotifications.checkPermission() === 0) {
+              this.notification = window.webkitNotifications.createNotification('', 'MoPomo Complete', 'Click to return to timer');
+              return this.notification.show();
+            }
+          });
           audioElement = document.createElement('audio');
           audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV');
           audioElement.setAttribute('autoplay', 'autoplay');
