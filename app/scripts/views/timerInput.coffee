@@ -11,11 +11,6 @@ define [
     initialize: (@timerInputModel, @timerModel) ->
 
     start: ->
-      Modernizr.addTest('notifications', ->
-        console.log(!!(window.webkitNotifications || window.mozNotifications || window.oNotifications || window.msNotifications || window.notifications))
-        if window.webkitNotifications.checkPermission() is not 0
-          window.webkitNotifications.requestPermission()
-      )
       @resetOutput()
       @timerModel.start()
 

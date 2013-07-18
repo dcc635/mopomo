@@ -58,12 +58,6 @@
         } else {
           this.duration = Moment.duration(0);
           this.stop();
-          Modernizr.addTest('notifications', function() {
-            if (window.webkitNotifications.checkPermission() === 0) {
-              this.notification = window.webkitNotifications.createNotification('', 'MoPomo Complete', 'Click to return to timer');
-              return this.notification.show();
-            }
-          });
           audioElement = document.createElement('audio');
           audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV');
           audioElement.setAttribute('autoplay', 'autoplay');

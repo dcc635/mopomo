@@ -18,12 +18,6 @@
       };
 
       TimerInputView.prototype.start = function() {
-        Modernizr.addTest('notifications', function() {
-          console.log(!!(window.webkitNotifications || window.mozNotifications || window.oNotifications || window.msNotifications || window.notifications));
-          if (window.webkitNotifications.checkPermission() === !0) {
-            return window.webkitNotifications.requestPermission();
-          }
-        });
         this.resetOutput();
         return this.timerModel.start();
       };
