@@ -26,11 +26,11 @@ module.exports = function (grunt) {
         yeoman: yeomanConfig,
         watch: {
             coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
+                files: ['<%= yeoman.app %>/scripts/**/*.coffee'],
                 tasks: ['coffee:dist']
             },
             coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
+                files: ['test/spec/**/*.coffee'],
                 tasks: ['coffee:test']
             },
             compass: {
@@ -119,33 +119,62 @@ module.exports = function (grunt) {
                 }
             }
         },
+        mochacov: {
+            coverage: {
+              options: {
+                coveralls: {
+                  serviceName: 'travis-ci',
+                }
+              }
+            },
+            nyan: {
+                options: {
+                    reporter: 'nyan'
+                }
+            },
+            test: {
+                options: {
+                    reporter: 'spec'
+                }
+            },
+            html: {
+                options: {
+                    reporter: 'html-cov',
+                    output: 'coverage.html',
+                }
+            },
+            all: {
+                options: {
+                    require: ['should'],
+                    files: '.tmp/spec/**/*.js'
+                }
+            }
+        },
         coffee: {
             dist: {
+                options: {
+                    bare: true
+                },
                 files: [{
                     // rather than compiling multiple files here you should
                     // require them into your main .coffee file
                     expand: true,
                     cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    //dest: '.tmp/scripts',
-                    //dest: './',
-                    dest: '<%= yeoman.app %>/scripts',
+                    src: '**/*.coffee',
+                    dest: '.tmp/scripts',
                     ext: '.js'
                 }]
             },
             test: {
+                options: {
+                    bare: true
+                },
                 files: [{
                     expand: true,
-                    cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
-                    //dest: '.tmp/scripts',
-                    //dest: './',
-                    dest: 'test/spec',
+                    cwd: 'test',
+                    src: '**/*.coffee',
+                    dest: '.tmp/test',
                     ext: '.js'
-                    // expand: true,
-                    // cwd: '.tmp/spec',
-                    // src: '*.coffee',
-                    // dest: 'test/spec'
                 }]
             }
         },
@@ -312,7 +341,7 @@ module.exports = function (grunt) {
         'jst',
         'compass',
         'connect:test',
-        'mocha'
+        'mochacov:html'
     ]);
 
     grunt.registerTask('build', [
@@ -337,6 +366,4 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
-
-
 };

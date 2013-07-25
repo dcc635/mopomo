@@ -25,9 +25,19 @@
     "grunt-open": "~0.2.0",
     "matchdep": "~0.1.2",
     "grunt-contrib-handlebars": "~0.5.9",
-    "grunt-handlebars-requirejs": "~0.1.0"
+    "grunt-handlebars-requirejs": "~0.1.0",
+    "grunt-mocha-cov": "0.0.7"
   },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "scripts": {
+    "blanket": {
+      "pattern": [
+        ".tmp/spec/",
+        ".tmp/scripts/"
+      ]
+    },
+    "coveralls": "make test"
   }
 }
