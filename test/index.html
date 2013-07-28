@@ -7,16 +7,16 @@
 </head>
 <body>
     <div id="mocha"></div>
-    
+
     <script src="lib/mocha/mocha.js"></script>
-    <script data-cover-only="//.*/" src="../app/bower_components/blanket/dist/qunit/blanket.js"></script>
-    <script src="../app/bower_components/blanket/src/adapters/mocha-blanket.js"></script>
     <script src="../app/bower_components/requirejs/require.js"></script>
+    <script data-cover-only="//(allTests|model)/" data-cover-adapter="../app/bower_components/blanket/src/adapters/mocha-blanket.js" src="../app/bower_components/blanket/dist/qunit/blanket.js"></script>
 
-    <script>
-        require(['../.tmp/test/test_require.js']);
+    <script src="../.tmp/test/requireConfig.js"></script>
+    <script type="text/javascript" src="../.tmp/test/allTests.js"></script>
+    <script type="text/javascript">
+        mocha.setup({ui: 'bdd', ignoreLeaks: true});
+        mocha.run();
     </script>
-
-    
 </body>
 </html>

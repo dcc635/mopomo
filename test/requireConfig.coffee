@@ -33,9 +33,3 @@ require.config
     underscore: "../../app/bower_components/underscore-amd/underscore"
 
   baseUrl: '../.tmp/scripts'
-
-mocha.setup({ui: 'bdd', ignoreLeaks: true})
-mocha.run()
-requirejs(['../test/spec/test_dan'],
-  () ->
-)
