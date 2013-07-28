@@ -63,20 +63,19 @@ define [
         })
 
     describe '#getElapsed', ->
+      @timeout(4000)
       it 'should return 0 if no time elapsed since start (or never started)', =>
         timerModel = new TimerModel()
-        setTimeout( ->
+        setTimeout(->
           console.log(timerModel.getElapsed())
           expect(timerModel.getElapsed()).to.equal(0)
         , 2)
 
       it 'should time elapsed since start (or never started)', (done) =>
-        @timeout = 4000
         timerModel = new TimerModel()
         timerModel.start()
         ELAPSE_TIME = 3000
-
-        setTimeout( ->
+        setTimeout(->
           elapsed = timerModel.getElapsed()
           console.log(elapsed)
           try
