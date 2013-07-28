@@ -34,8 +34,7 @@
   "scripts": {
     "blanket": {
       "pattern": [
-        ".tmp/spec/",
-        ".tmp/scripts/"
+        ".tmp/"
       ]
     },
     "coveralls": "make test"

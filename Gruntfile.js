@@ -341,7 +341,7 @@ module.exports = function (grunt) {
         'jst',
         'compass',
         'connect:test',
-        'mochacov:html'
+        'mochacov:test'
     ]);
 
     grunt.registerTask('build', [

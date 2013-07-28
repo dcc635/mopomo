@@ -22,6 +22,7 @@ require.config
   paths:
     backbone: "../../app/bower_components/backbone-amd/backbone"
     bootstrap: "vendor/bootstrap"
+    chai: "../../app/bower_components/chai/chai"
     handlebars: "../../app/bower_components/require-handlebars-plugin/Handlebars"
     hbs: "../../app/bower_components/require-handlebars-plugin/hbs"
     i18nprecompile: "../../app/bower_components/require-handlebars-plugin/hbs/i18nprecompile"
@@ -32,3 +33,9 @@ require.config
     underscore: "../../app/bower_components/underscore-amd/underscore"
 
   baseUrl: '../.tmp/scripts'
+
+mocha.setup({ui: 'bdd', ignoreLeaks: true})
+mocha.run()
+requirejs(['../test/spec/test_dan'],
+  () ->
+)

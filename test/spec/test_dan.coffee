@@ -1,13 +1,12 @@
-console.log('yo')
-define(['models/timerInput'], (TimerInputModel)->
-  describe('Give it some context', ->
-    describe('maybe a bit more context here', ->
-      it('should run here few assertions', ->
-        assert = chai.assert
-        timerModel = new TimerInputModel()
-        console.log('yo2')
-        assert.equal(timerModel.attributes.hours, 1)
-      )
-    )
-  )
-)
+describe 'Dummy', ->
+    describe 'Description', ->
+      it 'should run here few assertions', ->
+
+define ['models/timer', 'chai'], (TimerModel, Chai)->
+  describe 'TimerInput', ->
+    describe '#constructor', ->
+      it 'should have default attributes of 0', ->
+        expect = Chai.expect
+        expect(1).to.equal(1)
+        timerModel = new TimerModel()
+        expect(timerModel.attributes.hours).to.equal(1)
