@@ -20,12 +20,14 @@ define [
       @reset()
 
     getElapsed: ->
+      if not @moment_last
+        return 0
       moment_now = Moment()
       elapsed = @moment_last.diff(moment_now)
       @moment_last = moment_now
       return elapsed
 
-    save_duration: ->
+    saveDuration: ->
       @set({
         hours: Math.floor(@duration.asHours())
         minutes: @duration.minutes()
@@ -48,7 +50,7 @@ define [
         audioElement.addEventListener("load", ->
           audioElement.play()
         , true);
-      @save_duration()
+      @saveDuration()
 
     stop: =>
       if @interval
@@ -62,4 +64,4 @@ define [
     reset: ->
       @stop()
       @duration = Moment.duration(@attributes)
-      @save_duration()
+      @saveDuration()
