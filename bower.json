@@ -13,7 +13,8 @@
     "moment": "~2.1.0",
     "require-handlebars-plugin": "~0.4.0",
     "blanket": "~1.1.5",
-    "chai": "~1.7.2"
+    "chai": "~1.7.2",
+    "sinon": "~1.7.3",
   },
   "devDependencies": {}
 }

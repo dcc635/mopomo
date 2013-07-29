@@ -4,9 +4,14 @@ describe 'Dummy', ->
 
 define [
   'models/timer',
-  '../../../../app/bower_components/chai/chai',
+  'chai',
+  'sinon',
+  'sinonStub',
+  'sinonSpy',
   'moment',
-], (TimerModel, Chai, Moment)->
+], (TimerModel, Chai, Sinon, SinonStub, SinonSpy, Moment)->
+          
+  console.log(Sinon)
   expect = Chai.expect
 
   describe 'TimerInput', ->
@@ -75,6 +80,11 @@ define [
         timerModel = new TimerModel()
         timerModel.start()
         ELAPSE_TIME = 3000
+        expectedMoment = Moment.duration(timerModel.attributes).add('milliseconds', ELAPSE_TIME)
+        oldMoment = Moment
+        console.log(Moment)
+        Moment = Sinon.stub().returns(expectedMoment)
+        console.log(Moment)
         setTimeout(->
           elapsed = timerModel.getElapsed()
           console.log(elapsed)

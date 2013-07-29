@@ -19,6 +19,17 @@ require.config
     modernizr:
       exports: 'Modernizr'
 
+    sinon:
+      exports: 'sinon'
+
+    sinonStub:
+      deps: ['sinon']
+      exports: 'stub'
+
+    sinonSpy:
+      deps: ['sinon']
+      exports: 'spy'
+
   paths:
     backbone: "../../app/bower_components/backbone-amd/backbone"
     bootstrap: "vendor/bootstrap"
@@ -30,6 +41,9 @@ require.config
     json2: "../../app/bower_components/require-handlebars-plugin/hbs/json2"
     modernizr: "../../app/bower_components/modernizr/modernizr"
     moment: "../../app/bower_components/moment/moment"
+    sinon: "../../app/bower_components/sinon/lib/sinon"
+    sinonStub: "../../app/bower_components/sinon/lib/sinon/stub"
+    sinonSpy: "../../app/bower_components/sinon/lib/sinon/spy"
     underscore: "../../app/bower_components/underscore-amd/underscore"
 
   baseUrl: '../.tmp/scripts'
