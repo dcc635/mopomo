@@ -7,8 +7,6 @@ define [
 
   class TimerModel extends Backbone.Model
 
-    REFRESH_MS = 70
-
     defaults: {
       hours: 0
       minutes: 0
@@ -16,7 +14,7 @@ define [
       milliseconds: 0
     }
 
-    initialize: =>
+    initialize: (@refreshMs = 70) =>
       @reset()
 
     getElapsed: (momentLast = @momentLast, momentNow = Moment()) ->
@@ -36,9 +34,11 @@ define [
 
     refresh: =>
       elapsed = @getElapsed()
+      console.log("milliseconds before: #{ @duration.asMilliseconds() }")
       @duration = @duration.subtract(elapsed, 'ms')
+      console.log("milliseconds after: #{ @duration.asMilliseconds() }")
       if @duration.asMilliseconds() > 0
-        @interval = setTimeout(@refresh, REFRESH_MS)
+        @interval = setTimeout(@refresh, @refreshMs)
       else
         @duration = Moment.duration(0)
         @stop()
@@ -48,7 +48,7 @@ define [
         $.get()
         audioElement.addEventListener("load", ->
           audioElement.play()
-        , true);
+        , true)
       @saveDuration()
 
     stop: =>
@@ -58,7 +58,7 @@ define [
     start: =>
       @stop()
       @momentLast = Moment()
-      @interval = setTimeout(@refresh, REFRESH_MS)
+      @interval = setTimeout(@refresh, @refreshMs)
 
     reset: ->
       @stop()

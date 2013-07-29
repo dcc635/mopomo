@@ -30,9 +30,16 @@ require.config
       deps: ['sinon']
       exports: 'spy'
 
+    sinonSpyCall:
+      deps: ['sinon']
+      exports: 'spyCall'
+
+    sinonFakeTimers:
+      deps: ['sinon']
+      exports: 'sinonFakeTimers'
+
   paths:
     backbone: "../../app/bower_components/backbone-amd/backbone-min"
-    blanket: "../../app/bower_components/blanket/dist/qunit/blanket.min"
     bootstrap: "vendor/bootstrap"
     chai: "../../app/bower_components/chai/chai"
     handlebars: "../../app/bower_components/require-handlebars-plugin/Handlebars"
@@ -43,8 +50,10 @@ require.config
     modernizr: "../../app/bower_components/modernizr/modernizr"
     moment: "../../app/bower_components/moment/min/moment.min"
     sinon: "../../app/bower_components/sinon/lib/sinon"
+    sinonFakeTimers: "../../app/bower_components/sinon/lib/sinon/util/fake_timers"
     sinonStub: "../../app/bower_components/sinon/lib/sinon/stub"
     sinonSpy: "../../app/bower_components/sinon/lib/sinon/spy"
+    sinonSpyCall: "../../app/bower_components/sinon/lib/sinon/call"
     squire: "../../app/bower_components/squire/src/Squire"
     underscore: "../../app/bower_components/underscore-amd/underscore-min"
 

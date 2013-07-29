@@ -3,11 +3,16 @@ describe 'Mopomo Tests', ->
     it '', ->
 
 define [
-  'models/timer',
   'chai',
+  'sinon',
+  'sinonFakeTimers',
+  'sinonSpy',
+  'sinonSpyCall',
   'moment',
-], (TimerModel, Chai, Moment)->
+  'models/timer',
+], (Chai, Sinon, SinonFakeTimers, SinonSpy, SinonSpyCall, Moment, TimerModel)->
           
+  console.log(Sinon)
   expect = Chai.expect
 
   describe 'timerModel', ->
@@ -70,16 +75,50 @@ define [
         , 2)
 
       it 'should time elapsed since start (or never started)', ->
+        clock = Sinon.useFakeTimers()
         elapseTime = 3000
         timerModel = new TimerModel()
-        momentLast = Moment()
-        momentNow = Moment(momentLast).add('milliseconds', elapseTime)
-        elapsed = timerModel.getElapsed(momentLast, momentNow)
+        timerModel.momentLast = Moment()
+        clock.tick(elapseTime)
+        momentNow = Moment()
+        elapsed = timerModel.getElapsed()
         expect(elapsed).to.equal(elapseTime)
-        expect(timerModel.momentLast).to.equal(momentNow)
+        expect(timerModel.momentLast).to.deep.equal(momentNow)
+        clock.restore()
 
     describe '#refresh', ->
-
       it 'should call itself if @duration > 0', =>
+        clock = Sinon.useFakeTimers()
+        timerModel = new TimerModel()
+        timerModel.momentLast = Moment()
+        timerModel.duration = Moment.duration({
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          milliseconds: timerModel.refreshMs + 10,
+        })
+        console.log("duration: #{ timerModel.duration }")
+        console.log(TimerModel)
+        console.log(Moment().format())
+        Sinon.spy(timerModel, "refresh")
+        timerModel.refresh()
+        clock.tick(timerModel.refreshMs + 10)
+        console.log(Moment().format())
+        expect(timerModel.refresh.callCount).to.equal(2)
+        clock.restore()
 
       it 'should reset @duration to 0, stop timer, and play sound if @duration < 0', =>
+        clock = Sinon.useFakeTimers()
+        timerModel = new TimerModel()
+        timerModel.duration = Moment.duration({
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          milliseconds: 1,
+        })
+        timerModel.momentLast = Moment()
+        clock.tick(timerModel.refreshMs + 10)
+        Sinon.spy(timerModel, "refresh")
+        timerModel.refresh()
+        expect(timerModel.refresh.callCount).to.equal(1)
+        clock.restore()
