@@ -1,20 +1,16 @@
-describe 'Dummy', ->
-    describe 'Description', ->
-      it 'should run here few assertions', ->
+describe 'Mopomo Tests', ->
+  describe 'Dan Cleary', ->
+    it '', ->
 
 define [
   'models/timer',
   'chai',
-  'sinon',
-  'sinonStub',
-  'sinonSpy',
   'moment',
-], (TimerModel, Chai, Sinon, SinonStub, SinonSpy, Moment)->
+], (TimerModel, Chai, Moment)->
           
-  console.log(Sinon)
   expect = Chai.expect
 
-  describe 'TimerInput', ->
+  describe 'timerModel', ->
     log_attributes = (timerModel) ->
       console.log('Attributes:')
       for key, value of timerModel.attributes
@@ -49,7 +45,6 @@ define [
 
     describe '#saveDuration', ->
       it 'should save an arbitrary Moment.duration to the correct values', ->
-        console.log('should save an arbitrary Moment.duration to the correct values')
         timerModel = new TimerModel()
         timerModel.duration = Moment.duration({
           hours: 1
@@ -68,28 +63,23 @@ define [
         })
 
     describe '#getElapsed', ->
-      @timeout(4000)
-      it 'should return 0 if no time elapsed since start (or never started)', =>
+      it 'should return 0 if no time elapsed since start (or never started)', ->
         timerModel = new TimerModel()
         setTimeout(->
-          console.log(timerModel.getElapsed())
           expect(timerModel.getElapsed()).to.equal(0)
         , 2)
 
-      it 'should time elapsed since start (or never started)', (done) =>
+      it 'should time elapsed since start (or never started)', ->
+        elapseTime = 3000
         timerModel = new TimerModel()
-        timerModel.start()
-        ELAPSE_TIME = 3000
-        expectedMoment = Moment.duration(timerModel.attributes).add('milliseconds', ELAPSE_TIME)
-        oldMoment = Moment
-        console.log(Moment)
-        Moment = Sinon.stub().returns(expectedMoment)
-        console.log(Moment)
-        setTimeout(->
-          elapsed = timerModel.getElapsed()
-          console.log(elapsed)
-          try
-            expect(elapsed).to.equal(-ELAPSE_TIME)
-          catch error
-            done(error)
-        , ELAPSE_TIME)
+        momentLast = Moment()
+        momentNow = Moment(momentLast).add('milliseconds', elapseTime)
+        elapsed = timerModel.getElapsed(momentLast, momentNow)
+        expect(elapsed).to.equal(elapseTime)
+        expect(timerModel.momentLast).to.equal(momentNow)
+
+    describe '#refresh', ->
+
+      it 'should call itself if @duration > 0', =>
+
+      it 'should reset @duration to 0, stop timer, and play sound if @duration < 0', =>

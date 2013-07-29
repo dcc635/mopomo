@@ -19,12 +19,11 @@ define [
     initialize: =>
       @reset()
 
-    getElapsed: ->
-      if not @moment_last
+    getElapsed: (momentLast = @momentLast, momentNow = Moment()) ->
+      if not momentLast
         return 0
-      moment_now = Moment()
-      elapsed = @moment_last.diff(moment_now)
-      @moment_last = moment_now
+      elapsed = momentNow.diff(momentLast)
+      @momentLast = momentNow
       return elapsed
 
     saveDuration: ->
@@ -37,7 +36,7 @@ define [
 
     refresh: =>
       elapsed = @getElapsed()
-      @duration = @duration.add(elapsed, 'ms')
+      @duration = @duration.subtract(elapsed, 'ms')
       if @duration.asMilliseconds() > 0
         @interval = setTimeout(@refresh, REFRESH_MS)
       else
@@ -58,7 +57,7 @@ define [
 
     start: =>
       @stop()
-      @moment_last = Moment()
+      @momentLast = Moment()
       @interval = setTimeout(@refresh, REFRESH_MS)
 
     reset: ->
