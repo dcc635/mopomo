@@ -13,7 +13,8 @@ define [
     start: ->
       @resetOutput()
       @timerModel.audioElement.play()
-      # @timerModel.start()
+      @timerModel.audioElement.pause()
+      @timerModel.start()
 
     resetOutput: ->
       @timerModel.set({
