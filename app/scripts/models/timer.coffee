@@ -19,6 +19,9 @@ define [
       @audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV')
       @reset()
 
+    playSound: () ->
+      @audioElement.play()
+
     getElapsed: (momentLast = @momentLast, momentNow = Moment()) ->
       if not momentLast
         return 0
@@ -42,7 +45,7 @@ define [
       else
         @duration = Moment.duration(0)
         @stop()
-        @audioElement.play()
+        @playSound()
       @saveDuration()
 
     stop: =>

@@ -1,7 +1,6 @@
 {
   "name": "mopomo",
   "version": "0.0.0",
-  "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.0",
@@ -26,7 +25,9 @@
     "matchdep": "~0.1.2",
     "grunt-contrib-handlebars": "~0.5.9",
     "grunt-handlebars-requirejs": "~0.1.0",
-    "grunt-mocha-cov": "0.0.7"
+    "grunt-mocha-cov": "0.0.7",
+    "coveralls": "~2.0.16",
+    "requirejs": "~2.1.8"
   },
   "engines": {
     "node": ">=0.8.0"
@@ -34,7 +35,7 @@
   "scripts": {
     "blanket": {
       "pattern": [
-        ".tmp/"
+        ".tmp/test"
       ]
     },
     "coveralls": "make test"

@@ -30,7 +30,7 @@ module.exports = function (grunt) {
                 tasks: ['coffee:dist']
             },
             coffeeTest: {
-                files: ['test/spec/**/*.coffee'],
+                files: ['test/**/*.coffee'],
                 tasks: ['coffee:test']
             },
             compass: {
@@ -200,10 +200,31 @@ module.exports = function (grunt) {
                 // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
                 options: {
                     // `name` and `out` is set by grunt-usemin
-                    baseUrl: 'app/scripts',
+                    hbs: {
+                        disableI18n : true,
+                        helperPathCallback: function(name) {return '../../app/scripts/template/' + name;}
+                    },
+                    baseUrl: '.tmp/scripts',
                     optimize: 'none',
                     paths: {
-                        'templates': '../../.tmp/scripts/templates'
+                        'templates': 'templates',
+                        'backbone': "../../app/bower_components/backbone-amd/backbone-min",
+                        'bootstrap': "vendor/bootstrap",
+                        'chai': "../../app/bower_components/chai/chai",
+                        'handlebars': "../../app/bower_components/require-handlebars-plugin/Handlebars",
+                        'hbs': "../../app/bower_components/require-handlebars-plugin/hbs",
+                        'i18nprecompile': "../../app/bower_components/require-handlebars-plugin/hbs/i18nprecompile",
+                        'jquery': "../../app/bower_components/jquery/jquery.min",
+                        'json2': "../../app/bower_components/require-handlebars-plugin/hbs/json2",
+                        'modernizr': "../../app/bower_components/modernizr/modernizr",
+                        'moment': "../../app/bower_components/moment/min/moment.min",
+                        'sinon': "../../app/bower_components/sinon/lib/sinon",
+                        'sinonFakeTimers': "../../app/bower_components/sinon/lib/sinon/util/fake_timers",
+                        'sinonStub': "../../app/bower_components/sinon/lib/sinon/stub",
+                        'sinonSpy': "../../app/bower_components/sinon/lib/sinon/spy",
+                        'sinonSpyCall': "../../app/bower_components/sinon/lib/sinon/call",
+                        'squire': "../../app/bower_components/squire/src/Squire",
+                        'underscore': "../../app/bower_components/underscore-amd/underscore-min"
                     },
                     // TODO: Figure out how to make sourcemaps work with grunt-usemin
                     // https://github.com/yeoman/grunt-usemin/issues/30
@@ -272,6 +293,17 @@ module.exports = function (grunt) {
             }
         },
         copy: {
+            tmp: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.app %>/scripts/template',
+                    dest: '.tmp/scripts/template',
+                    src: [
+                        '*.hbs'
+                    ]
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,
@@ -351,6 +383,7 @@ module.exports = function (grunt) {
         'jst',
         'compass:dist',
         'useminPrepare',
+        'copy:tmp',
         'requirejs',
         'imagemin',
         'htmlmin',
