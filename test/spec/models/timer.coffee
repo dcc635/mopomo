@@ -12,17 +12,10 @@ define [
   'models/timer',
 ], (Chai, Sinon, SinonFakeTimers, SinonSpy, SinonSpyCall, Moment, TimerModel)->
           
-  console.log(Sinon)
   expect = Chai.expect
 
   describe 'timerModel', ->
-    log_attributes = (timerModel) ->
-      console.log('Attributes:')
-      for key, value of timerModel.attributes
-        console.log('  ' + key + ': ' + value)
-
     check_defaults = (timerModel) ->
-      log_attributes(timerModel)
       for key, value of timerModel.attributes
         expect(value).to.equal(0)
 
@@ -40,11 +33,9 @@ define [
       it 'should reset to where it was previously set to', =>
         timerModel = new TimerModel()
         timerModel.set('hours', 4)
-        log_attributes(timerModel)
         timerModel.start()
         setTimeout(->
           timerModel.reset()
-          log_attributes(timerModel)
           expect(timerModel.attributes.hours).to.equal(4)
         , 2)
 
@@ -57,9 +48,7 @@ define [
           seconds: 3
           milliseconds: 4
         })
-        log_attributes(timerModel)
         timerModel.saveDuration()
-        log_attributes(timerModel)
         expect(timerModel.attributes).to.deep.equal({
           hours: 1
           minutes: 2
@@ -97,13 +86,9 @@ define [
           seconds: 0,
           milliseconds: timerModel.refreshMs + 10,
         })
-        console.log("duration: #{ timerModel.duration }")
-        console.log(TimerModel)
-        console.log(Moment().format())
         Sinon.spy(timerModel, "refresh")
         timerModel.refresh()
         clock.tick(timerModel.refreshMs + 10)
-        console.log(Moment().format())
         expect(timerModel.refresh.callCount).to.equal(2)
         clock.restore()
 
@@ -119,6 +104,11 @@ define [
         timerModel.momentLast = Moment()
         clock.tick(timerModel.refreshMs + 10)
         Sinon.spy(timerModel, "refresh")
+        Sinon.spy(timerModel, "stop")
+        Sinon.spy(timerModel.audioElement, "play")
         timerModel.refresh()
+        expect(timerModel.duration).to.deep.equal(Moment.duration(0))
+        expect(timerModel.stop.callCount).to.equal(1)
         expect(timerModel.refresh.callCount).to.equal(1)
+        expect(timerModel.audioElement.play.callCount).to.equal(1)
         clock.restore()

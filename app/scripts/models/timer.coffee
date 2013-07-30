@@ -15,6 +15,8 @@ define [
     }
 
     initialize: (@refreshMs = 70) =>
+      @audioElement = document.createElement('audio')
+      @audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV')
       @reset()
 
     getElapsed: (momentLast = @momentLast, momentNow = Moment()) ->
@@ -34,21 +36,13 @@ define [
 
     refresh: =>
       elapsed = @getElapsed()
-      console.log("milliseconds before: #{ @duration.asMilliseconds() }")
       @duration = @duration.subtract(elapsed, 'ms')
-      console.log("milliseconds after: #{ @duration.asMilliseconds() }")
       if @duration.asMilliseconds() > 0
         @interval = setTimeout(@refresh, @refreshMs)
       else
         @duration = Moment.duration(0)
         @stop()
-        audioElement = document.createElement('audio')
-        audioElement.setAttribute('src', 'http://cd.textfiles.com/10000soundssongs/WAV/DING1.WAV')
-        audioElement.setAttribute('autoplay', 'autoplay')
-        $.get()
-        audioElement.addEventListener("load", ->
-          audioElement.play()
-        , true)
+        @audioElement.play()
       @saveDuration()
 
     stop: =>
