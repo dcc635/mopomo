@@ -19,7 +19,8 @@ define [
       }))
       milliseconds = @model.attributes.milliseconds
       amp = 100
-      position = 100-100*Math.abs(Math.sin(milliseconds*Math.PI/1000))
+      sin_position = 100 - 100 * Math.abs(Math.sin(milliseconds * Math.PI / 1000))
+      position = 13 + (0.59 * sin_position)
       $('div #millisecond-animation').css({
         'top': "#{ position }%"
       })
