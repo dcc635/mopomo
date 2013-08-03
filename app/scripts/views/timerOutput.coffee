@@ -9,12 +9,18 @@ define [
 
     initialize: ->
       @listenTo(@model, "change", @render)
+      console.log($('div #millisecond-animation'))
 
     render: ->
       this.$el.html(TimerOutputTemplate({
         hours: Util.padLeftZeros(@model.attributes.hours, 2)
         minutes: Util.padLeftZeros(@model.attributes.minutes, 2)
         seconds: Util.padLeftZeros(@model.attributes.seconds, 2)
-        milliseconds: Util.padLeftZeros(Math.floor(@model.attributes.milliseconds/10), 2)
-      }));
+      }))
+      milliseconds = @model.attributes.milliseconds
+      amp = 100
+      position = 100-100*Math.abs(Math.sin(milliseconds*Math.PI/1000))
+      $('div #millisecond-animation').css({
+        'top': "#{ position }%"
+      })
       return this

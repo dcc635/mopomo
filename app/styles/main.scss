@@ -8,10 +8,26 @@
 
 #timer-output {
     @extend h1;
+    height: 63px;
+    margin-bottom: 10px;
 }
 
 input[class="clock-input focused"]{
     @extend h1;
     width: 68px;
     height: 63px;
+}
+
+#output-text {
+    float: left;
+    margin-right: 10px;
+}
+
+#millisecond-animation {
+    position: relative;
+    height: 10px;
+    width: 10px;
+    background-color: #0088CC;
+    float: left;
+    top: 100%;
 }

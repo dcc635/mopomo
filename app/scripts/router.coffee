@@ -22,7 +22,7 @@ define [
 
     timer: ->
       $('#timer-input').html(@timerInputView.render().el);
-      $('#timer-output').html(@timerOutputView.render().el);
+      $('#output-text').html(@timerOutputView.render().el);
 
   initialize: ->
     appRouter = new AppRouter()

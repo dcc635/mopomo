@@ -22,6 +22,7 @@ require.config
   paths:
     backbone: "../bower_components/backbone-amd/backbone"
     bootstrap: "vendor/bootstrap"
+    d3: "../bower_components/d3/d3.min"
     handlebars: "../bower_components/require-handlebars-plugin/Handlebars"
     hbs: "../bower_components/require-handlebars-plugin/hbs"
     i18nprecompile: "../bower_components/require-handlebars-plugin/hbs/i18nprecompile"
