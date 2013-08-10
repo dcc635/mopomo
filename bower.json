@@ -15,8 +15,6 @@
     "blanket": "~1.1.5",
     "chai": "~1.7.2",
     "sinon": "~1.7.3",
-    "squire": "*",
-    "d3": "~3.2.8"
   },
   "devDependencies": {}
 }
