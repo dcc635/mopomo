@@ -9,6 +9,7 @@ Yeoman
 - yo: project scaffolding
 - bower: dependency manager
 - grunt: environment builder
+
 Backbone.js - MVC framework for JavaScript
 Bootstrap - HTML/CSS/JS framework (Darkstrap mod)
 CoffeeScript - Clean language that transcompiles to JavaScript
