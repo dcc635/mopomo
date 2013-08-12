@@ -54,6 +54,7 @@ define [
           minutes: 2
           seconds: 3
           milliseconds: 4
+          tally: 0
         })
 
     describe '#getElapsed', ->
@@ -104,11 +105,11 @@ define [
         timerModel.momentLast = Moment()
         clock.tick(timerModel.refreshMs + 10)
         Sinon.spy(timerModel, "refresh")
-        Sinon.spy(timerModel, "stop")
+        Sinon.spy(timerModel, "pause")
         Sinon.spy(timerModel.audioElement, "play")
         timerModel.refresh()
         expect(timerModel.duration).to.deep.equal(Moment.duration(0))
-        expect(timerModel.stop.callCount).to.equal(1)
+        expect(timerModel.pause.callCount).to.equal(1)
         expect(timerModel.refresh.callCount).to.equal(1)
         expect(timerModel.audioElement.play.callCount).to.equal(1)
         clock.restore()

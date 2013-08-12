@@ -12,6 +12,7 @@ define [
       minutes: 0
       seconds: 0
       milliseconds: 0
+      tally: 0
     }
 
     initialize: (@refreshMs = 70) =>
@@ -37,27 +38,34 @@ define [
         milliseconds: @duration.milliseconds()
       })
 
+    continueTimer: =>
+      @interval = setTimeout(@refresh, @refreshMs)
+
     refresh: =>
       elapsed = @getElapsed()
       @duration = @duration.subtract(elapsed, 'ms')
       if @duration.asMilliseconds() > 0
-        @interval = setTimeout(@refresh, @refreshMs)
+        @continueTimer()
       else
-        @duration = Moment.duration(0)
-        @stop()
-        @playSound()
+        @completePomodoro()
       @saveDuration()
 
-    stop: =>
+    pause: =>
       if @interval
         clearTimeout(@interval)
 
+    completePomodoro: ->
+      @duration = Moment.duration(0)
+      @pause()
+      @playSound()
+      @set('tally', @get('tally') + 1)
+
     start: =>
-      @stop()
+      @pause()
       @momentLast = Moment()
       @interval = setTimeout(@refresh, @refreshMs)
 
     reset: ->
-      @stop()
+      @pause()
       @duration = Moment.duration(@attributes)
       @saveDuration()
