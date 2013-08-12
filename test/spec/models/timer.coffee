@@ -93,9 +93,11 @@ define [
         expect(timerModel.refresh.callCount).to.equal(2)
         clock.restore()
 
-      it 'should reset @duration to 0, stop timer, and play sound if @duration < 0', =>
+      it 'should reset @duration to 0, stop timer, play sound,
+          and increment tally if @duration < 0', =>
         clock = Sinon.useFakeTimers()
         timerModel = new TimerModel()
+        expect(timerModel.attributes.tally).to.equal(0)
         timerModel.duration = Moment.duration({
           hours: 0,
           minutes: 0,
@@ -112,4 +114,5 @@ define [
         expect(timerModel.pause.callCount).to.equal(1)
         expect(timerModel.refresh.callCount).to.equal(1)
         expect(timerModel.audioElement.play.callCount).to.equal(1)
+        expect(timerModel.attributes.tally).to.equal(1)
         clock.restore()

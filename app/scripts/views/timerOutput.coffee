@@ -23,4 +23,5 @@ define [
       $('div #millisecond-animation').css({
         'top': "#{ position }%"
       })
+      $('div #tally').html(@model.attributes.tally)
       return this
