@@ -9,7 +9,6 @@ define [
 
     initialize: ->
       @listenTo(@model, "change", @render)
-      console.log($('div #millisecond-animation'))
 
     render: ->
       this.$el.html(TimerOutputTemplate({
