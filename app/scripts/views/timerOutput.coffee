@@ -2,8 +2,9 @@ define [
   'jquery',
   'backbone',
   'util',
-  'hbs!template/timerOutput'
-], ($, Backbone, Util, TimerOutputTemplate) ->
+  'hbs!template/timerOutput',
+  'hbs!template/tally'
+], ($, Backbone, Util, TimerOutputTemplate, TallyTemplate) ->
 
   class TimerOutputView extends Backbone.View
 
@@ -23,5 +24,7 @@ define [
       $('div #millisecond-animation').css({
         'top': "#{ position }%"
       })
-      $('div #tally').html(@model.attributes.tally)
+      $('div #tally').html(TallyTemplate({
+        tally: @model.attributes.tally
+      }))
       return this

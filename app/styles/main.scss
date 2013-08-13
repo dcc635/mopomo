@@ -31,3 +31,7 @@ input[class="clock-input focused"]{
     float: left;
     top: 100%;
 }
+
+#tally {
+    @extend h1;
+}
