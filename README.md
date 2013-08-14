@@ -1,15 +1,17 @@
 # MoPomo
 
-MoPomo is a web app incarnation of the [Pomodoro Technique](http://en.wikipedia.org/wiki/Pomodoro_Technique).
+MoPomo is a web incarnation of the [Pomodoro Technique](http://en.wikipedia.org/wiki/Pomodoro_Technique) built on Backbone.js.
+
+Check out the demo [here](http://dcc635.github.io/mopomo/).
 
 # Tools
+
+Backbone.js: MVC framework for JavaScript
 
 Yeoman:
 * yo: project scaffolding
 * bower: dependency manager
 * grunt: environment builder
-
-Backbone.js: MVC framework for JavaScript
 
 Bootstrap: HTML/CSS/JS framework (Darkstrap mod)
 
