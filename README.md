@@ -2,7 +2,7 @@
 
 MoPomo is a web incarnation of the [Pomodoro Technique](http://en.wikipedia.org/wiki/Pomodoro_Technique) built on Backbone.js.
 
-Check out the demo [here](http://dcc635.github.io/mopomo/).
+Check out the demo [here](http://dcc635.github.io/mopomo/). Just enter a time for your Pomodoro and Mo-Po-Go!
 
 # Tools
 
