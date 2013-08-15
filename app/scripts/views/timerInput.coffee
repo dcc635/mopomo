@@ -8,20 +8,33 @@ define [
 
   class TimerInputView extends Backbone.View
 
-    initialize: (@timerInputModel, @timerModel) ->
-
-    start: ->
-      @resetOutput()
-      @timerModel.audioElement.play()
+    initialize: (@timerModel) ->
+      @listenTo(@timerModel, "change:paused", @render)
+      this.$el.html(TimerInputTemplate(@timerModel.get('start')))
       @timerModel.audioElement.pause()
-      @timerModel.start()
+      @delegateEvents({
+        'click button#start-pause': 'startPause'
+        'click button#reset': 'reset'
+        'keyup input': 'allow_only_numerals'
+        'focusout input': 'format'
+      })
 
-    resetOutput: ->
+    startPause: ->
+      if @timerModel.get('paused')
+        if @timerModel.get('completed')
+          @reset()
+        @timerModel.start()
+      else
+        @timerModel.pause()
+
+    reset: ->
       @timerModel.set({
-        hours: $('#hours').val()
-        minutes: $('#minutes').val()
-        seconds: $('#seconds').val()
-        milliseconds: 0
+        start: {
+          hours: $('#hours').val()
+          minutes: $('#minutes').val()
+          seconds: $('#seconds').val()
+          milliseconds: 0
+        }
       })
       @timerModel.reset()
 
@@ -38,11 +51,8 @@ define [
       $(this.select())
 
     render: ->
-      this.$el.html(TimerInputTemplate(@timerInputModel.attributes))
-      @delegateEvents({
-        'click button#start': 'start'
-        'click button#reset': 'resetOutput'
-        'keyup input': 'allow_only_numerals'
-        'focusout input': 'format'
-      })
+      if @timerModel.get('paused')
+        $('button#start-pause').html('Start')
+      else
+        $('button#start-pause').html('Pause')
       return this

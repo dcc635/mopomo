@@ -8,11 +8,19 @@ define [
   class TimerModel extends Backbone.Model
 
     defaults: {
+      start: {
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+      }
       hours: 0
       minutes: 0
       seconds: 0
       milliseconds: 0
       tally: 0
+      paused: true
+      completed: true
     }
 
     initialize: (@refreshMs = 70) =>
@@ -51,6 +59,7 @@ define [
       @saveDuration()
 
     pause: =>
+      @set({paused: true})
       if @interval
         clearTimeout(@interval)
 
@@ -59,13 +68,17 @@ define [
       @pause()
       @playSound()
       @set('tally', @get('tally') + 1)
+      @set('completed', true)
 
     start: =>
-      @pause()
+      if @get('completed')
+        @reset()
+        @set('completed', false)
+      @set({paused: false})
       @momentLast = Moment()
       @interval = setTimeout(@refresh, @refreshMs)
 
     reset: ->
       @pause()
-      @duration = Moment.duration(@attributes)
+      @duration = Moment.duration(@get('start'))
       @saveDuration()
