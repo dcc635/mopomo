@@ -1,12 +1,11 @@
-define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'moment',
-  'models/timer'
-  'views/timerInput'
-  'views/timerOutput'
-], ($, _, Backbone, moment, TimerModel, TimerInputView, TimerOutputView) ->
+define (require) ->
+  
+  $ = require('jquery')
+  _ = require('underscore')
+  Backbone = require('backbone')
+  TimerModel = require('models/timer')
+  TimerInputView = require('views/timerInput')
+  TimerOutputView = require('views/timerOutput')
 
   class AppRouter extends Backbone.Router
 

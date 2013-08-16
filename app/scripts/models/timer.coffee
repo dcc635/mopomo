@@ -1,9 +1,8 @@
-define [
-  'jquery',
-  'backbone',
-  'moment',
-  'modernizr'
-], ($, Backbone, Moment, Modernizr) ->
+define (require) ->
+
+  $ = require('jquery')
+  Backbone = require('backbone')
+  Moment = require('moment')
 
   class TimerModel extends Backbone.Model
 

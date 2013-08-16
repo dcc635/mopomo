@@ -1,10 +1,9 @@
-define [
-  'jquery',
-  'backbone',
-  'util',
-  'hbs!template/timerInput',
-  'modernizr'
-], ($, Backbone, Util, TimerInputTemplate, Modernizr) ->
+define (require) ->
+
+  $ = require('jquery')
+  Backbone = require('backbone')
+  Util = require('util')
+  TimerInputTemplate = require('hbs!template/timerInput')
 
   class TimerInputView extends Backbone.View
 

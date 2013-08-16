@@ -1,10 +1,10 @@
-define [
-  'jquery',
-  'backbone',
-  'util',
-  'hbs!template/timerOutput',
-  'hbs!template/tally'
-], ($, Backbone, Util, TimerOutputTemplate, TallyTemplate) ->
+define (require) ->
+  
+  $ = require('jquery')
+  Backbone = require('backbone')
+  Util = require('util')
+  TimerOutputTemplate = require('hbs!template/timerOutput')
+  TallyTemplate = require('hbs!template/tally')
 
   class TimerOutputView extends Backbone.View
 
