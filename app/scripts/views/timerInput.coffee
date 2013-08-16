@@ -5,6 +5,7 @@ define (require) ->
   Util = require('util')
   TimerInputTemplate = require('hbs!template/timerInput')
 
+
   class TimerInputView extends Backbone.View
 
     initialize: (@timerModel) ->
@@ -27,13 +28,11 @@ define (require) ->
         @timerModel.pause()
 
     reset: ->
-      @timerModel.set('startTime',
-        TimestampModel(
-          hours: $('#hours').val()
-          minutes: $('#minutes').val()
-          seconds: $('#seconds').val()
-          milliseconds: 0
-        )
+      @timerModel.get('startTime').set(
+        hours: $('#hours').val()
+        minutes: $('#minutes').val()
+        seconds: $('#seconds').val()
+        milliseconds: 0
       )
       @timerModel.reset()
 

@@ -15,8 +15,8 @@ define (require) ->
   class TimerModel extends Backbone.Model
 
     defaults:
-      startTime: TimestampModel()
-      currentTime: TimestampModel()
+      startTime: new TimestampModel
+      currentTime: new TimestampModel
       tally: 0
       paused: true
       completed: true
@@ -37,12 +37,12 @@ define (require) ->
       return elapsed
 
     saveDuration: ->
-      @set('currentTime', {
+      @get('currentTime').set(
         hours: Math.floor(@duration.asHours())
         minutes: @duration.minutes()
         seconds: @duration.seconds()
         milliseconds: @duration.milliseconds()
-      })
+      )
 
     continueTimer: =>
       @interval = setTimeout(@refresh, @refreshMs)
@@ -78,6 +78,5 @@ define (require) ->
 
     reset: ->
       @pause()
-      console.log(@get('startTime'))
-      @duration = Moment.duration(@get('startTime'))
+      @duration = Moment.duration(@get('startTime').attributes)
       @saveDuration()

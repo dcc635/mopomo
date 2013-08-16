@@ -6,13 +6,14 @@ define (require) ->
   TimerOutputTemplate = require('hbs!template/timerOutput')
   TallyTemplate = require('hbs!template/tally')
 
+
   class TimerOutputView extends Backbone.View
 
     initialize: ->
-      @listenTo(@model, "change", @render)
+      @listenTo(@model.get('currentTime'), "change", @render)
 
     render: ->
-      this.$el.html(TimerOutputTemplate({
+      @$el.html(TimerOutputTemplate({
         hours: Util.padLeftZeros(@model.get('currentTime').get('hours'), 2)
         minutes: Util.padLeftZeros(@model.get('currentTime').get('minutes'), 2)
         seconds: Util.padLeftZeros(@model.get('currentTime').get('seconds'), 2)

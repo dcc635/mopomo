@@ -12,3 +12,4 @@ define (require) ->
   return {
     initialize: initialize
   }
+  
