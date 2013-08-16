@@ -37,12 +37,11 @@ define (require) ->
       return elapsed
 
     saveDuration: ->
-      @get('currentTime').set(
+      @get('currentTime').set
         hours: Math.floor(@duration.asHours())
         minutes: @duration.minutes()
         seconds: @duration.seconds()
         milliseconds: @duration.milliseconds()
-      )
 
     continueTimer: =>
       @interval = setTimeout(@refresh, @refreshMs)

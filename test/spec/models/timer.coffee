@@ -2,36 +2,33 @@ describe 'Mopomo Tests', ->
   describe 'Dan Cleary', ->
     it '', ->
 
-define [
-  'chai',
-  'sinon',
-  'sinonFakeTimers',
-  'sinonSpy',
-  'sinonSpyCall',
-  'moment',
-  'models/timer',
-], (Chai, Sinon, SinonFakeTimers, SinonSpy, SinonSpyCall, Moment, TimerModel)->
+define (require) ->
+
+  Chai = require('chai')
+  Sinon = require('sinon')
+  SinonFakeTimers = require('sinonFakeTimers')
+  SinonSpy = require('sinonSpy')
+  SinonSpyCall = require('sinonSpyCall')
+  Moment = require('moment')
+  TimerModel = require('models/timer')
           
   expect = Chai.expect
 
   describe 'timerModel', ->
-    check_defaults = (timerModel) ->
-      for key, value of timerModel.attributes
-        expect(value).to.equal(0)
-
+    
     describe '#constructor', ->
-      it 'should have default attributes of 0', ->
-        timerModel = new TimerModel()
-        check_defaults(timerModel)
+      it 'should be able to consstruct new timerModel', ->
+        timerModel = new TimerModel
 
     describe '#reset', ->
       it 'should reset to 0 if just started', ->
-        timerModel = new TimerModel()
+        timerModel = new TimerModel
+        timerModel2 = new TimerModel
         timerModel.reset()
-        check_defaults(timerModel)
+        expect(timerModel.attributes).to.deep.equal(timerModel2.attributes)
 
       it 'should reset to where it was previously set to', =>
-        timerModel = new TimerModel()
+        timerModel = new TimerModel
         timerModel.set('hours', 4)
         timerModel.start()
         setTimeout(->
@@ -41,21 +38,18 @@ define [
 
     describe '#saveDuration', ->
       it 'should save an arbitrary Moment.duration to the correct values', ->
-        timerModel = new TimerModel()
-        timerModel.duration = Moment.duration({
+        timerModel = new TimerModel
+        timerModel.duration = Moment.duration
           hours: 1
           minutes: 2
           seconds: 3
           milliseconds: 4
-        })
         timerModel.saveDuration()
-        expect(timerModel.attributes).to.deep.equal({
+        expect(timerModel.get('currentTime').attributes).to.deep.equal
           hours: 1
           minutes: 2
           seconds: 3
           milliseconds: 4
-          tally: 0
-        })
 
     describe '#getElapsed', ->
       it 'should return 0 if no time elapsed since start (or never started)', ->
@@ -81,12 +75,11 @@ define [
         clock = Sinon.useFakeTimers()
         timerModel = new TimerModel()
         timerModel.momentLast = Moment()
-        timerModel.duration = Moment.duration({
+        timerModel.duration = Moment.duration
           hours: 0,
           minutes: 0,
           seconds: 0,
           milliseconds: timerModel.refreshMs + 10,
-        })
         Sinon.spy(timerModel, "refresh")
         timerModel.refresh()
         clock.tick(timerModel.refreshMs + 10)
