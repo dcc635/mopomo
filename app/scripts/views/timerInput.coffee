@@ -9,7 +9,7 @@ define (require) ->
 
     initialize: (@timerModel) ->
       @listenTo(@timerModel, "change:paused", @render)
-      this.$el.html(TimerInputTemplate(@timerModel.get('start')))
+      this.$el.html(TimerInputTemplate(@timerModel.get('startTime').attributes))
       @timerModel.audioElement.pause()
       @delegateEvents({
         'click button#start-pause': 'startPause'
@@ -27,14 +27,14 @@ define (require) ->
         @timerModel.pause()
 
     reset: ->
-      @timerModel.set({
-        start: {
+      @timerModel.set('startTime',
+        TimestampModel(
           hours: $('#hours').val()
           minutes: $('#minutes').val()
           seconds: $('#seconds').val()
           milliseconds: 0
-        }
-      })
+        )
+      )
       @timerModel.reset()
 
     format: ->

@@ -1,5 +1,5 @@
 define (require) ->
-  
+
   $ = require('jquery')
   _ = require('underscore')
   Backbone = require('backbone')
@@ -11,6 +11,7 @@ define (require) ->
 
     initialize: ->
       @timerModel = new TimerModel()
+      console.log(@timerModel)
       @timerInputView = new TimerInputView(@timerModel)
       @timerOutputView = new TimerOutputView({model: @timerModel})
 

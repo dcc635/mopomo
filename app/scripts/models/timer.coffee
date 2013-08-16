@@ -4,23 +4,22 @@ define (require) ->
   Backbone = require('backbone')
   Moment = require('moment')
 
-  class TimerModel extends Backbone.Model
+  class TimestampModel extends Backbone.Model
 
-    defaults: {
-      start: {
-        hours: 0
-        minutes: 0
-        seconds: 0
-        milliseconds: 0
-      }
+    defaults:
       hours: 0
       minutes: 0
       seconds: 0
       milliseconds: 0
+
+  class TimerModel extends Backbone.Model
+
+    defaults:
+      startTime: TimestampModel()
+      currentTime: TimestampModel()
       tally: 0
       paused: true
       completed: true
-    }
 
     initialize: (@refreshMs = 70) =>
       @audioElement = document.createElement('audio')
@@ -38,7 +37,7 @@ define (require) ->
       return elapsed
 
     saveDuration: ->
-      @set({
+      @set('currentTime', {
         hours: Math.floor(@duration.asHours())
         minutes: @duration.minutes()
         seconds: @duration.seconds()
@@ -79,5 +78,6 @@ define (require) ->
 
     reset: ->
       @pause()
-      @duration = Moment.duration(@get('start'))
+      console.log(@get('startTime'))
+      @duration = Moment.duration(@get('startTime'))
       @saveDuration()
