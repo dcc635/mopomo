@@ -4,23 +4,20 @@ define (require) ->
   _ = require('underscore')
   Backbone = require('backbone')
   TimerModel = require('models/timer')
-  TimerInputView = require('views/timerInput')
-  TimerOutputView = require('views/timerOutput')
-
+  TimerView = require('views/timer')
 
   class AppRouter extends Backbone.Router
 
     initialize: ->
       @timerModel = new TimerModel()
-      @timerInputView = new TimerInputView(@timerModel)
-      @timerOutputView = new TimerOutputView({model: @timerModel})
+      @timerView = new TimerView(@timerModel)
 
     routes: ->
       '': 'timer'
 
     timer: ->
-      $('#timer-input').html(@timerInputView.render().el)
-      $('#output-text').html(@timerOutputView.render().el)
+      $('#timers').html(@timerView.render().el)
+      # $('#output-text').html(@timerView.renderOutput().el)
 
 
   initialize: ->
