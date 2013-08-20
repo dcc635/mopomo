@@ -13,10 +13,10 @@ define (require) ->
     initialize: (@timerModel) ->
   
     render: ->
-      @$el.html(TimerTemplate())
-      @input = new TimerInputView(el: @$(".timer-input"), model: @model)
-      @output = new TimerOutputView(el: @$(".timer-output"), model: @model)
-      @tally = new TimerTallyView(el: @$(".timer-tally"), model: @model)
+      @$el.html(@TimerTemplate())
+      @input = new TimerInputView(el: @$('#timer-input'))
+      @output = new TimerOutputView(el: @$('#timer-output'))
+      @tally = new TimerTallyView(el: @$('#timer-tally'))
       @input.render()
       @output.render()
       @tally.render()
