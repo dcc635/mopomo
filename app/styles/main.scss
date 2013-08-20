@@ -6,24 +6,27 @@
     width: 500px;
 }
 
-#timer-output {
-    @extend h1;
-    height: 63px;
-    margin-bottom: 10px;
+input[class="clock-input focused"] .hours {
 }
 
-input[class="clock-input focused"]{
+.timer input {
     @extend h1;
     width: 68px;
     height: 63px;
 }
 
-#output-text {
+.timer .timer-output {
+    @extend h1;
+    height: 63px;
+    margin-bottom: 10px;
+}
+
+.timer .timer-output .hh-mm-ss {
     float: left;
     margin-right: 10px;
 }
 
-#millisecond-animation {
+.timer .timer-output .millisecond-animation {
     position: relative;
     height: 10px;
     width: 10px;
@@ -32,6 +35,6 @@ input[class="clock-input focused"]{
     top: 100%;
 }
 
-#tally {
+.timer .timer-tally {
     @extend h1;
 }

@@ -10,7 +10,7 @@ define (require) ->
 
     initialize: ->
       @listenTo(@model, "change:paused", @render)
-      this.$el.html(TimerInputTemplate(@model.get('startTime').attributes))
+      @.$el.html(TimerInputTemplate(@model.get('startTime').attributes))
       @model.audioElement.pause()
       @delegateEvents({
         'click button.start-pause': 'startPause'
@@ -46,7 +46,7 @@ define (require) ->
           $(id).val($(id).val().replace(/\D/g, ''))
 
     focus: ->
-      $(this.select())
+      $(@select())
 
     render: ->
       if @model.get('paused')
