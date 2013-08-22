@@ -10,7 +10,8 @@ define (require) ->
 
   class TimerView extends Backbone.View
 
-    initialize: (@timerModel) ->
+    initialize: ->
+      @listenTo(@model, "change", @render)
   
     render: ->
       @$el.html(TimerTemplate())

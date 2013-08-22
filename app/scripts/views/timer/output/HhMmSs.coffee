@@ -2,8 +2,8 @@ define (require) ->
 
   $ = require('jquery')
   Backbone = require('backbone')
-  Util = require('util')
   TimerOutputHhMmSsTemplate = require('hbs!template/timer/output/HhMmSs')
+  Formatting = require('formatting')
 
 
   class TimerOutputHhMmSsView extends Backbone.View
@@ -11,9 +11,15 @@ define (require) ->
     initialize: ->
       @listenTo(@model, "change:currentTime", @render)
 
+    padLeftZeros: (number, padding) ->
+      numberStr = '' + number
+      while numberStr.length < padding
+        numberStr = '0' + numberStr
+      return numberStr
+
     render: ->
       @$el.html TimerOutputHhMmSsTemplate
-        hours: Util.padLeftZeros(@model.get('currentTime').get('hours'), 2)
-        minutes: Util.padLeftZeros(@model.get('currentTime').get('minutes'), 2)
-        seconds: Util.padLeftZeros(@model.get('currentTime').get('seconds'), 2)
+        hours: Formatting.padLeftZeros(@model.get('currentTime').hours, 2)
+        minutes: Formatting.padLeftZeros(@model.get('currentTime').minutes, 2)
+        seconds: Formatting.padLeftZeros(@model.get('currentTime').seconds, 2)
       return this

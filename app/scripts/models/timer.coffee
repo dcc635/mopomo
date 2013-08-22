@@ -4,19 +4,13 @@ define (require) ->
   Backbone = require('backbone')
   Moment = require('moment')
 
-  class TimestampModel extends Backbone.Model
-
-    defaults:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
+  Timestamp = (@hours = 0, @minutes = 0, @seconds = 0, @milliseconds = 0) ->
 
   class TimerModel extends Backbone.Model
 
     defaults:
-      startTime: new TimestampModel
-      currentTime: new TimestampModel
+      startTime: new Timestamp
+      currentTime: new Timestamp
       tally: 0
       paused: true
       completed: true
@@ -37,7 +31,7 @@ define (require) ->
       return elapsed
 
     saveDuration: ->
-      @get('currentTime').set
+      @set 'currentTime',
         hours: Math.floor(@duration.asHours())
         minutes: @duration.minutes()
         seconds: @duration.seconds()
@@ -77,5 +71,5 @@ define (require) ->
 
     reset: ->
       @pause()
-      @duration = Moment.duration(@get('startTime').attributes)
+      @duration = Moment.duration(@get('startTime'))
       @saveDuration()

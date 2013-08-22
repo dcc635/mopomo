@@ -2,7 +2,6 @@ define (require) ->
 
   $ = require('jquery')
   Backbone = require('backbone')
-  Util = require('util')
   TimerOutputTemplate = require('hbs!template/timer/output')
   TimerOutputHhMmSsView = require('views/timer/output/HhMmSs')
   TimerOutputMsAnimationView = require('views/timer/output/msAnimation')
@@ -11,7 +10,7 @@ define (require) ->
   class TimerOutputView extends Backbone.View
 
     initialize: ->
-      @listenTo(@model, "change:currentTime", @render)
+      @render()
 
     render: ->
       @$el.html(TimerOutputTemplate())

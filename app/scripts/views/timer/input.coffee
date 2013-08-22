@@ -2,8 +2,9 @@ define (require) ->
 
   $ = require('jquery')
   Backbone = require('backbone')
-  Util = require('util')
   TimerInputTemplate = require('hbs!template/timer/input')
+  TimerModel = require('models/timer')
+  Formatting = require('formatting')
 
 
   class TimerInputView extends Backbone.View
@@ -28,17 +29,16 @@ define (require) ->
         @model.pause()
 
     reset: ->
-      @model.get('startTime').set(
+      @model.set 'startTime',
         hours: $('.hours').val()
         minutes: $('.minutes').val()
         seconds: $('.seconds').val()
         milliseconds: 0
-      )
       @model.reset()
 
     format: ->
       for id in ['.hours', '.minutes', '.seconds']
-        $(id).val(Util.padLeftZeros($(id).val(), 2))
+        $(id).val(Formatting.padLeftZeros($(id).val(), 2))
 
     allow_only_numerals: ->
       for id in ['.hours', '.minutes', '.seconds']
