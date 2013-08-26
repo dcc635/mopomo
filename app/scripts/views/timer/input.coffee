@@ -11,14 +11,12 @@ define (require) ->
 
     initialize: ->
       @listenTo(@model, "change:paused", @render)
-      @.$el.html(TimerInputTemplate(@model.get('startTime').attributes))
-      @model.audioElement.pause()
-      @delegateEvents({
+      @$el.html(TimerInputTemplate(@model.get('startTime')))
+      @delegateEvents
         'click button.start-pause': 'startPause'
         'click button.reset': 'reset'
         'keyup input': 'allow_only_numerals'
         'focusout input': 'format'
-      })
 
     startPause: ->
       if @model.get('paused')
