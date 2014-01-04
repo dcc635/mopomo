@@ -1,4 +1,8 @@
-.sass-cache/
-.tmp/
-app/bower_components/
-node_modules/
+*.pyc
+*.pyo
+
+mopomo_backbone/.sass-cache/
+mopomo_backbone/.tmp/
+mopomo_backbone/app/bower_components/
+mopomo_backbone/node_modules/
+mopomo_backbone/mopomo/node_modules/
