@@ -1,5 +1,6 @@
 *.pyc
 *.pyo
+*.sqlite3
 
 mopomo_backbone/.sass-cache/
 mopomo_backbone/.tmp/
