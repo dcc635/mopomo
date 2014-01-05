@@ -5,6 +5,7 @@ define (require) ->
   Backbone = require('backbone')
   TimerModel = require('models/timer')
   TimerView = require('views/timer')
+  SignInView = require('views/signin')
 
 
   class AppRouter extends Backbone.Router
@@ -12,12 +13,14 @@ define (require) ->
     initialize: ->
       @timerModel = new TimerModel()
       @timerView = new TimerView(model: @timerModel)
+      @signInView = new SignInView()
 
     routes: ->
       '': 'timer'
 
     timer: ->
       $('#timers').html(@timerView.render().el)
+      $('#signin').html(@signInView.render().el)
 
 
   initialize: ->
