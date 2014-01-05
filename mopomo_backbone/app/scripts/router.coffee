@@ -4,6 +4,7 @@ define (require) ->
   _ = require('underscore')
   Backbone = require('backbone')
   TimerModel = require('models/timer')
+  Timers = require('collections/timers')
   TimerView = require('views/timer')
 
 

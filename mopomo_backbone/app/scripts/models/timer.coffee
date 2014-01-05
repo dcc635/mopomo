@@ -1,4 +1,4 @@
-define (require) ->
+ define (require) ->
 
   $ = require('jquery')
   Backbone = require('backbone')
@@ -8,6 +8,7 @@ define (require) ->
 
   class TimerModel extends Backbone.Model
 
+    urlRoot: 'http://artemis.vm:3000/api/v1/timer/'
     defaults:
       startTime: new Timestamp
       currentTime: new Timestamp
