@@ -10,6 +10,8 @@ define (require) ->
   class AppRouter extends Backbone.Router
 
     initialize: ->
+      @timers = new Timers()
+      @timers.fetch()
       @timerModel = new TimerModel()
       @timerView = new TimerView(model: @timerModel)
 
