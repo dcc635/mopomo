@@ -12,6 +12,7 @@ define (require) ->
 
     initialize: ->
       @timers = new Timers()
+      debugger
       @timers.fetch()
       @timerModel = new TimerModel()
       @timerView = new TimerView(model: @timerModel)

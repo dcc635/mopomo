@@ -17,7 +17,38 @@ class PrettyJSONSerializer(Serializer):
         return json.dumps(data, cls=DjangoJSONEncoder,
                 sort_keys=True, ensure_ascii=False, indent=self.json_indent)
 
-class UserResource(ModelResource):
+class CORSResource(object):
+    """
+    Adds CORS headers to resources that subclass this.
+    """
+    def create_response(self, *args, **kwargs):
+        response = super(CORSResource, self).create_response(*args, **kwargs)
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Headers'] = 'Content-Type'
+        return response
+ 
+    def method_check(self, request, allowed=None):
+        if allowed is None:
+            allowed = []
+ 
+        request_method = request.method.lower()
+        allows = ','.join(map(str.upper, allowed))
+ 
+        if request_method == 'options':
+            response = HttpResponse(allows)
+            response['Access-Control-Allow-Origin'] = '*'
+            response['Access-Control-Allow-Headers'] = 'Content-Type'
+            response['Allow'] = allows
+            raise ImmediateHttpResponse(response=response)
+ 
+        if not request_method in allowed:
+            response = http.HttpMethodNotAllowed(allows)
+            response['Allow'] = allows
+            raise ImmediateHttpResponse(response=response)
+ 
+        return request_method
+
+class UserResource(ModelResource, CORSResource):
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
@@ -31,10 +62,19 @@ class UserResource(ModelResource):
         allowed_methods = ['get']
         authentication = BasicAuthentication()
 
-class TimerResource(ModelResource):
+class TimerResource(ModelResource, CORSResource):
     #user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
         queryset = Timer.objects.all()
         resource_name = 'timer'
+        allowed_methods = ['get']
         serializer = PrettyJSONSerializer()
+
+    def create_response(self, *args, **kwargs):
+        response = super().create_response(*args, **kwargs)
+        response['Access-Control-Allow-Origin'] = 'http://artemis.vm:9000'
+        response['Access-Control-Allow-Headers'] = 'Content-Type'
+        response['Access-Control-Allow-Credentials'] = 'true'
+        return response
+

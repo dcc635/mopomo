@@ -8,7 +8,7 @@
 
   class TimerModel extends Backbone.Model
 
-    urlRoot: 'http://artemis.vm:3000/api/v1/timer/'
+    urlRoot: 'http://localhost:3000/api/v1/timer/?format=json'
     defaults:
       startTime: new Timestamp
       currentTime: new Timestamp

@@ -7,3 +7,4 @@ mopomo_backbone/.tmp/
 mopomo_backbone/app/bower_components/
 mopomo_backbone/node_modules/
 mopomo_backbone/mopomo/node_modules/
+mopomo_backbone/npm-debug.log
