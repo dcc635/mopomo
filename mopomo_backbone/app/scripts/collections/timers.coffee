@@ -2,7 +2,6 @@
 
   $ = require('jquery')
   Backbone = require('backbone')
-  TastypieCollection = require('collections/tastypiecollection')
   TimerModel = require('models/timer')
 
 
