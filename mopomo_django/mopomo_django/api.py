@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
 from tastypie import fields
 from tastypie.authentication import BasicAuthentication
+from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
 from mopomo_django.models import Timer
 
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from tastypie.serializers import Serializer
+
 
 class PrettyJSONSerializer(Serializer):
     json_indent = 2
@@ -17,7 +19,8 @@ class PrettyJSONSerializer(Serializer):
         return json.dumps(data, cls=DjangoJSONEncoder,
                 sort_keys=True, ensure_ascii=False, indent=self.json_indent)
 
-class CORSResource(object):
+
+class CORSResource(ModelResource):
     """
     Adds CORS headers to resources that subclass this.
     """
@@ -48,8 +51,11 @@ class CORSResource(object):
  
         return request_method
 
-class UserResource(ModelResource, CORSResource):
+
+class UserResource(CORSResource):
+
     class Meta:
+        always_return_data = True
         queryset = User.objects.all()
         resource_name = 'user'
         excludes = [
@@ -60,15 +66,18 @@ class UserResource(ModelResource, CORSResource):
             'is_superuser',
         ]
         allowed_methods = ['get']
+        authorization = Authorization()
         authentication = BasicAuthentication()
 
-class TimerResource(ModelResource, CORSResource):
+
+class TimerResource(CORSResource):
     #user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
+        always_return_data = True
         queryset = Timer.objects.all()
         resource_name = 'timer'
-        allowed_methods = ['get']
+        authorization = Authorization()
         serializer = PrettyJSONSerializer()
 
     def create_response(self, *args, **kwargs):

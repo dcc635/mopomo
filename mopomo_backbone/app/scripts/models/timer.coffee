@@ -3,12 +3,13 @@
   $ = require('jquery')
   Backbone = require('backbone')
   Moment = require('moment')
+  TastypieModel = require('models/tastypiemodel')
 
   Timestamp = (@hours = 0, @minutes = 0, @seconds = 0, @milliseconds = 0) ->
 
-  class TimerModel extends Backbone.Model
+  class TimerModel extends TastypieModel 
 
-    urlRoot: 'http://localhost:3000/api/v1/timer/?format=json'
+    urlRoot: 'http://localhost:3000/api/v1/timer/'
     defaults:
       startTime: new Timestamp
       currentTime: new Timestamp
