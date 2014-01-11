@@ -13,7 +13,10 @@ define (require) ->
 
     initialize: ->
       @timers = new Timers()
-      @timers.fetch()
+      @timers.fetch
+        reset: true
+        success: =>
+          console.log(@timers)
       @timerModel = new TimerModel()
       @timerView = new TimerView(model: @timerModel)
       @timersView = new TimersView(collection: @timers)
@@ -22,7 +25,6 @@ define (require) ->
       '': 'timer'
 
     timer: ->
-      #$('#timers').html(@timerView.render().el)
       $('#timers').html(@timersView.render().el)
 
 

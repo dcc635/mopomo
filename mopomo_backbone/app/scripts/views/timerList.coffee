@@ -9,7 +9,7 @@ define (require) ->
 
     initialize: ->
       @listenTo(@collection, "reset", @render)
-      debugger
+      @render
 
     render: ->
       @$el.html(TimersTemplate(@collection))

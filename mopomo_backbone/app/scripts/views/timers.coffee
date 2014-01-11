@@ -11,6 +11,5 @@ define (require) ->
       @listenTo(@collection, "reset", @render)
 
     render: ->
-      debugger
       @$el.html(TimersTemplate(@collection))
       return this
