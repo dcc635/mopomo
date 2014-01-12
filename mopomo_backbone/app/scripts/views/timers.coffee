@@ -14,6 +14,5 @@ define (require) ->
     render: =>
       @$el.html(TimersTemplate(@collection))
       @collection.each (timerModel) =>
-        debugger
         timerView = new TimerView(el: @$("#timer-" + timerModel.get("id")), model: timerModel)
       return this

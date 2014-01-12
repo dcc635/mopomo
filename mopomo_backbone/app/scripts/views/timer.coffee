@@ -16,10 +16,9 @@ define (require) ->
     render: ->
       debugger
       @$el.html(TimerTemplate())
-      timerLabel = "#timer-" + @model.get("id")
-      @input = new TimerInputView(el: @$(timerLabel + " .timer-input"), model: @model)
-      @output = new TimerOutputView(el: @$(timerLabel + " .timer-output"), model: @model)
-      @tally = new TimerTallyView(el: @$(timerLabel + " .timer-tally"), model: @model)
+      @input = new TimerInputView(el: @$(".timer-input"), model: @model)
+      @output = new TimerOutputView(el: @$(".timer-output"), model: @model)
+      @tally = new TimerTallyView(el: @$(".timer-tally"), model: @model)
       @input.render()
       @output.render()
       @tally.render()

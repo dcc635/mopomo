@@ -18,8 +18,10 @@ define (require) ->
       return numberStr
 
     render: ->
+      debugger
       @$el.html TimerOutputHhMmSsTemplate
         hours: Formatting.padLeftZeros(@model.get('currentTime').hours, 2)
         minutes: Formatting.padLeftZeros(@model.get('currentTime').minutes, 2)
+        minutes: Formatting.padLeftZeros(@model.get('minutes'), 2)
         seconds: Formatting.padLeftZeros(@model.get('currentTime').seconds, 2)
       return this
