@@ -17,8 +17,6 @@ define (require) ->
         reset: true
         success: =>
           console.log(@timers)
-      @timerModel = new TimerModel()
-      @timerView = new TimerView(model: @timerModel)
       @timersView = new TimersView(collection: @timers)
 
     routes: ->

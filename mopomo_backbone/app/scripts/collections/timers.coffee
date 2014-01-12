@@ -11,4 +11,5 @@
     model: TimerModel
 
     parse: (response) ->
+      debugger
       return response.objects
