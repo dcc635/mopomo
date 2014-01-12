@@ -2,6 +2,7 @@ define (require) ->
 
   $ = require('jquery')
   Backbone = require('backbone')
+  TimerView = require('views/timer')
   TimersTemplate = require('hbs!template/timers')
 
 
@@ -10,6 +11,9 @@ define (require) ->
     initialize: ->
       @listenTo(@collection, "reset", @render)
 
-    render: ->
+    render: =>
       @$el.html(TimersTemplate(@collection))
+      @collection.each (timerModel) =>
+        debugger
+        timerView = new TimerView(el: @$("#timer-" + timerModel.get("id")), model: timerModel)
       return this
