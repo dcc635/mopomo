@@ -1,6 +1,7 @@
 *.pyc
 *.pyo
 *.sqlite3
+*.DS_Store
 
 mopomo_backbone/.sass-cache/
 mopomo_backbone/.tmp/

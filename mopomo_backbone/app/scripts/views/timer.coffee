@@ -14,7 +14,6 @@ define (require) ->
       @render()
   
     render: ->
-      debugger
       @$el.html(TimerTemplate())
       @input = new TimerInputView(el: @$(".timer-input"), model: @model)
       @output = new TimerOutputView(el: @$(".timer-output"), model: @model)

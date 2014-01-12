@@ -17,13 +17,15 @@ define (require) ->
         reset: true
         success: =>
           console.log(@timers)
-      @timersView = new TimersView(collection: @timers)
+          @timersView = new TimersView(collection: @timers)
+          @timer()
 
     routes: ->
       '': 'timer'
 
     timer: ->
-      $('#timers').html(@timersView.render().el)
+      if @timersView
+        $('#timers').html(@timersView.render().el)
 
 
   initialize: ->

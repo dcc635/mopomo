@@ -87,3 +87,11 @@ class TimerResource(CORSResource):
         response['Access-Control-Allow-Credentials'] = 'true'
         return response
 
+    def dehydrate(self, bundle):
+        bundle.data['startTime'] = {
+            'hours': bundle.data['hours'],
+            'minutes': bundle.data['minutes'],
+            'seconds': bundle.data['seconds'],
+            'milliseconds': bundle.data['milliseconds'],
+        }
+        return bundle
