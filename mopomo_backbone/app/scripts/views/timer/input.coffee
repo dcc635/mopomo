@@ -12,6 +12,7 @@ define (require) ->
     initialize: ->
       @listenTo(@model, "change:paused", @render)
       @$el.html(TimerInputTemplate(@model.get('startTime')))
+      @tagId = "#timer-#{@model.id}"
       @delegateEvents
         'click button.start-pause': 'startPause'
         'click button.reset': 'reset'
@@ -35,20 +36,22 @@ define (require) ->
       @model.reset()
 
     format: ->
-      for id in ['.hours', '.minutes', '.seconds']
-        $(id).val(Formatting.padLeftZeros($(id).val(), 2))
+      for unitClass in ['.hours', '.minutes', '.seconds']
+        unitTag = "#{@tagId} #{unitClass}"
+        $(unitTag).val(Formatting.padLeftZeros($(unitTag).val(), 2))
 
     allow_only_numerals: ->
-      for id in ['.hours', '.minutes', '.seconds']
-        if (/\D/g.test($(id).val()))
-          $(id).val($(id).val().replace(/\D/g, ''))
+      for unitClass in ['.hours', '.minutes', '.seconds']
+        unitTag = "#{@tagId} #{unitClass}"
+        if (/\D/g.test($(unitTag).val()))
+          $(unitTag).val($(unitTag).val().replace(/\D/g, ''))
 
     focus: ->
       $(@select())
 
     render: ->
       if @model.get('paused')
-        $('button.start-pause').html('Start')
+        $("#{@tagId} button.start-pause").html('Start')
       else
-        $('button.start-pause').html('Pause')
+        $("#{@tagId} button.start-pause").html('Pause')
       return this
