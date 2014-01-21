@@ -11,8 +11,8 @@ define (require) ->
 
     initialize: ->
       @listenTo(@model, "change:paused", @render)
-      @$el.html(TimerInputTemplate(@model.get('startTime')))
       @tagId = "#timer-#{@model.id}"
+      @$el.html(TimerInputTemplate())
       @delegateEvents
         'click button.start-pause': 'startPause'
         'click button.reset': 'reset'
@@ -29,27 +29,30 @@ define (require) ->
 
     reset: ->
       @model.set 'startTime',
-        hours: $('.hours').val()
-        minutes: $('.minutes').val()
-        seconds: $('.seconds').val()
+        hours: $("#{@tagId} .hours").val()
+        minutes: $("#{@tagId} .minutes").val()
+        seconds: $("#{@tagId} .seconds").val()
         milliseconds: 0
       @model.reset()
 
     format: ->
       for unitClass in ['.hours', '.minutes', '.seconds']
-        unitTag = "#{@tagId} #{unitClass}"
-        $(unitTag).val(Formatting.padLeftZeros($(unitTag).val(), 2))
+        unitTag = "#{unitClass}"
+        @$(unitClass).val(Formatting.padLeftZeros(@$(unitClass).val(), 2))
 
     allow_only_numerals: ->
       for unitClass in ['.hours', '.minutes', '.seconds']
-        unitTag = "#{@tagId} #{unitClass}"
-        if (/\D/g.test($(unitTag).val()))
-          $(unitTag).val($(unitTag).val().replace(/\D/g, ''))
+        if (/\D/g.test(@$(unitClass).val()))
+          @$(unitClass).val(@$(unitClass).val().replace(/\D/g, ''))
 
     focus: ->
       $(@select())
 
     render: ->
+      @$('.hours').val(@model.get('startTime').hours)
+      @$('.minutes').val(@model.get('startTime').minutes)
+      @$('.seconds').val(@model.get('startTime').seconds)
+      @format()
       if @model.get('paused')
         $("#{@tagId} button.start-pause").html('Start')
       else

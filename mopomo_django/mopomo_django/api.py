@@ -88,10 +88,10 @@ class TimerResource(CORSResource):
         return response
 
     def dehydrate(self, bundle):
-        bundle.data['startTime'] = {
-            'hours': bundle.data['hours'],
-            'minutes': bundle.data['minutes'],
-            'seconds': bundle.data['seconds'],
-            'milliseconds': bundle.data['milliseconds'],
-        }
+        for time_type in ['start', 'current']:
+            time_bundle_dict = {}
+            for unit in ['hours', 'minutes', 'seconds', 'milliseconds']:
+                time_bundle_dict[unit] = bundle.data[time_type + '_' + unit]
+                del bundle.data[time_type + '_' + unit]
+            bundle.data[time_type + 'Time'] = time_bundle_dict
         return bundle
