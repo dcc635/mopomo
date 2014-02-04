@@ -15,6 +15,8 @@
     "blanket": "~1.1.5",
     "chai": "~1.7.2",
     "sinon": "~1.7.3"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.0.3"
   }
 }
-

@@ -1,5 +1,4 @@
-@import 'sass-bootstrap/bootstrap';
-@import 'darkstrap/darkstrap';
+@import 'bootstrap/dist/css/bootstrap';
 
 .hero-unit {
     margin: 50px auto 0 auto;
@@ -14,7 +13,7 @@
 
 .timer .timer-output {
     @extend h1;
-    height: 63px;
+    height: 35px;
     margin-bottom: 10px;
 }
 
@@ -25,8 +24,8 @@
 
 .timer .timer-output .ms-animation {
     position: relative;
-    height: 10px;
-    width: 10px;
+    height: 7px;
+    width: 7px;
     background-color: #0088CC;
     float: left;
     top: 100%;

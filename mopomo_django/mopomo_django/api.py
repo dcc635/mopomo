@@ -82,7 +82,7 @@ class TimerResource(CORSResource):
 
     def create_response(self, *args, **kwargs):
         response = super().create_response(*args, **kwargs)
-        response['Access-Control-Allow-Origin'] = 'http://artemis.vm:9000'
+        response['Access-Control-Allow-Origin'] = 'http://localhost:9000'
         response['Access-Control-Allow-Headers'] = 'Content-Type'
         response['Access-Control-Allow-Credentials'] = 'true'
         return response

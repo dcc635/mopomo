@@ -20,6 +20,7 @@ define (require) ->
         'focusout input': 'format'
 
     startPause: ->
+      @saveModel()
       if @model.get('paused')
         if @model.get('completed')
           @reset()
@@ -27,12 +28,15 @@ define (require) ->
       else
         @model.pause()
 
-    reset: ->
+    saveModel: ->
       @model.set 'startTime',
         hours: $("#{@tagId} .hours").val()
         minutes: $("#{@tagId} .minutes").val()
         seconds: $("#{@tagId} .seconds").val()
         milliseconds: 0
+
+    reset: ->
+      @saveModel()
       @model.reset()
 
     format: ->
