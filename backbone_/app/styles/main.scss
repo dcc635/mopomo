@@ -34,3 +34,17 @@
 .timer .timer-tally {
     @extend h1;
 }
+
+$digit-width: 50px;
+
+.timer .timer-output-digits {
+    height: $digit-width;
+    width: $digit-width;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #333333;
+    margin: 0 2px 0 2px;
+    float: left;
+    text-align: center;
+    line-height: $digit-width;
+}
