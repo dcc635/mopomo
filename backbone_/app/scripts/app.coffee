@@ -1,5 +1,5 @@
 define (require) ->
-  
+
   $ = require('jquery')
   _ = require('underscore')
   Backbone = require('backbone')
@@ -12,4 +12,3 @@ define (require) ->
   return {
     initialize: initialize
   }
-  

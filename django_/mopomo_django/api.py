@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from tastypie import fields
 from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
@@ -16,8 +15,13 @@ class PrettyJSONSerializer(Serializer):
     def to_json(self, data, options=None):
         options = options or {}
         data = self.to_simple(data, options)
-        return json.dumps(data, cls=DjangoJSONEncoder,
-                sort_keys=True, ensure_ascii=False, indent=self.json_indent)
+        return json.dumps(
+            data,
+            cls=DjangoJSONEncoder,
+            sort_keys=True,
+            ensure_ascii=False,
+            indent=self.json_indent,
+        )
 
 
 class CORSResource(ModelResource):
@@ -29,26 +33,26 @@ class CORSResource(ModelResource):
         response['Access-Control-Allow-Origin'] = '*'
         response['Access-Control-Allow-Headers'] = 'Content-Type'
         return response
- 
+
     def method_check(self, request, allowed=None):
         if allowed is None:
             allowed = []
- 
+
         request_method = request.method.lower()
         allows = ','.join(map(str.upper, allowed))
- 
+
         if request_method == 'options':
             response = HttpResponse(allows)
             response['Access-Control-Allow-Origin'] = '*'
             response['Access-Control-Allow-Headers'] = 'Content-Type'
             response['Allow'] = allows
             raise ImmediateHttpResponse(response=response)
- 
-        if not request_method in allowed:
+
+        if request_method not in allowed:
             response = http.HttpMethodNotAllowed(allows)
             response['Allow'] = allows
             raise ImmediateHttpResponse(response=response)
- 
+
         return request_method
 
 
@@ -71,7 +75,6 @@ class UserResource(CORSResource):
 
 
 class TimerResource(CORSResource):
-    #user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
         always_return_data = True

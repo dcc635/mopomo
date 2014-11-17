@@ -9,3 +9,5 @@ backbone_/app/bower_components/
 backbone_/node_modules/
 backbone_/mopomo/node_modules/
 backbone_/npm-debug.log
+
+design/*

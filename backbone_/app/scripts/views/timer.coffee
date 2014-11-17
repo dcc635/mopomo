@@ -12,7 +12,7 @@ define (require) ->
 
     initialize: ->
       @render()
-  
+
     render: ->
       @$el.html(TimerTemplate())
       @input = new TimerInputView(el: @$(".timer-input"), model: @model)

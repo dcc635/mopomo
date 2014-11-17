@@ -1,9 +1,8 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
 
+
 class Timer(models.Model):
-    #user = models.ForeignKey(User)
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     start_hours = models.IntegerField()

@@ -12,4 +12,3 @@ define (require) ->
     render: ->
       @$el.html(TimerTallyTemplate(tally: @model.get('tally')))
       return this
-      

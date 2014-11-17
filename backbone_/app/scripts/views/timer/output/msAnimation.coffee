@@ -17,4 +17,3 @@ define (require) ->
       @$el.css
         'top': "#{ position }%"
       return this
-      

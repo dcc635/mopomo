@@ -1,5 +1,5 @@
 define ->
-  
+
   padLeftZeros: (number, padding) ->
     numberStr = '' + number
     while numberStr.length < padding

@@ -6,7 +6,7 @@
 
   Timestamp = (@hours = 0, @minutes = 0, @seconds = 0, @milliseconds = 0) ->
 
-  class TimerModel extends Backbone.Model 
+  class TimerModel extends Backbone.Model
 
     urlRoot: 'http://localhost:3000/api/v1/timer/'
     defaults:
