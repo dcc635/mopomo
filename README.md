@@ -28,3 +28,24 @@ mocha.js: unit testing
 chai.js: provides "should" syntax for unit testing
 
 sinon.js: provides spies, mocks for unit testing
+
+# Getting Started
+
+## Install and Run the Django App
+
+(Note: Python 3 is required to run this application.)
+
+```bash
+$ cd django_
+$ pip install -r requirements.txt
+$ python manage.py runserver 3000
+```
+
+## Install and Run the Backbone App
+
+```bash
+$ cd backbone_
+$ npm install
+$ bower install
+$ grunt server
+```

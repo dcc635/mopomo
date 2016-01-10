@@ -1,9 +1,13 @@
 *.pyc
 *.pyo
 *.sqlite3
+*.DS_Store
 
-mopomo_backbone/.sass-cache/
-mopomo_backbone/.tmp/
-mopomo_backbone/app/bower_components/
-mopomo_backbone/node_modules/
-mopomo_backbone/mopomo/node_modules/
+backbone_/.sass-cache/
+backbone_/.tmp/
+backbone_/app/bower_components/
+backbone_/node_modules/
+backbone_/mopomo/node_modules/
+backbone_/npm-debug.log
+
+design/*
